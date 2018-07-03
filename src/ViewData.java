@@ -1,3 +1,15 @@
+
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+import model.Instructor;
+import model.Lecturer;
+import model.Postgraduate;
+import model.Undergraduate;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -15,6 +27,7 @@ public class ViewData extends javax.swing.JPanel {
      */
     public ViewData() {
         initComponents();
+        
     }
 
     /**
@@ -30,31 +43,71 @@ public class ViewData extends javax.swing.JPanel {
         jButtonUndergraduates = new javax.swing.JButton();
         jButtonPostgradates = new javax.swing.JButton();
         jButtonLectures = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
 
         setBackground(new java.awt.Color(153, 153, 255));
 
         jButtonInstructors.setText("Instructors");
+        jButtonInstructors.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonInstructorsActionPerformed(evt);
+            }
+        });
 
         jButtonUndergraduates.setText("Undergraduates");
+        jButtonUndergraduates.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonUndergraduatesActionPerformed(evt);
+            }
+        });
 
-        jButtonPostgradates.setText("Lectures");
+        jButtonPostgradates.setText("Postgraduates");
+        jButtonPostgradates.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonPostgradatesActionPerformed(evt);
+            }
+        });
 
         jButtonLectures.setText("Lectures");
+        jButtonLectures.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonLecturesActionPerformed(evt);
+            }
+        });
+
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane1.setViewportView(jTable1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(69, 69, 69)
-                .addComponent(jButtonLectures, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(28, 28, 28)
-                .addComponent(jButtonInstructors, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(27, 27, 27)
-                .addComponent(jButtonUndergraduates)
-                .addGap(29, 29, 29)
-                .addComponent(jButtonPostgradates, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(360, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(69, 69, 69)
+                        .addComponent(jButtonLectures, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(28, 28, 28)
+                        .addComponent(jButtonInstructors, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(27, 27, 27)
+                        .addComponent(jButtonUndergraduates)
+                        .addGap(29, 29, 29)
+                        .addComponent(jButtonPostgradates, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(50, 50, 50)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 920, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(29, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -65,9 +118,158 @@ public class ViewData extends javax.swing.JPanel {
                     .addComponent(jButtonLectures, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButtonUndergraduates, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButtonPostgradates, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(729, Short.MAX_VALUE))
+                .addGap(51, 51, 51)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(247, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButtonLecturesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLecturesActionPerformed
+        try {
+            ArrayList<Lecturer>leclist=LecturerController.getAllLecturers();
+            
+            String col[] = {"Lecture_Id","Lecture_Name","DoB", "Address", "Email", "Contact"};
+
+            DefaultTableModel tableModel = new DefaultTableModel(col, 0);
+                                            // The 0 argument is number rows.
+
+            JTable table = new JTable(tableModel);
+            for (int i = 0; i < leclist.size(); i++){
+                String Id = leclist.get(i).getId();
+                String Name = leclist.get(i).getName();
+                String DoB = leclist.get(i).getDoB();
+                String Address = leclist.get(i).getAddress();
+                String Email = leclist.get(i).getEmail();
+                String Contact = leclist.get(i).getContact();
+
+                Object[] lec = {Id, Name, DoB, Address, Email, Contact};
+
+                tableModel.addRow(lec);
+
+            }
+            jTable1.setModel(tableModel);
+            
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(ViewData.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jButtonLecturesActionPerformed
+
+    private void jButtonInstructorsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonInstructorsActionPerformed
+        try {
+            ArrayList<Instructor>inslist=InstructorController.getAllInstructors();
+            
+            String col[] = {"Instructor_Id","Instructor_Name","DoB", "Address", "Email", "Contact"};
+
+            DefaultTableModel tableModel = new DefaultTableModel(col, 0);
+                                            // The 0 argument is number rows.
+
+            JTable table = new JTable(tableModel);
+            for (int i = 0; i < inslist.size(); i++){
+                String Id = inslist.get(i).getId();
+                String Name = inslist.get(i).getName();
+                String DoB = inslist.get(i).getDoB();
+                String Address = inslist.get(i).getAddress();
+                String Email = inslist.get(i).getEmail();
+                String Contact = inslist.get(i).getContact();
+
+                Object[] ins = {Id, Name, DoB, Address, Email, Contact};
+
+                tableModel.addRow(ins);
+
+            }
+            jTable1.setModel(tableModel);
+            
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(ViewData.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jButtonInstructorsActionPerformed
+
+    private void jButtonUndergraduatesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonUndergraduatesActionPerformed
+        try {
+            ArrayList<Undergraduate>underglist = UndergraduateController.getAllUndergradutes();
+            String col[] = {"Student_Id","Student_Name","DoB","Address", "Email", "Contact","Registration_Date","Intake","Stream","Faculty"};
+
+            DefaultTableModel tableModel = new DefaultTableModel(col, 0);
+                                            // The 0 argument is number rows.
+
+            JTable table = new JTable(tableModel);
+            for (int i = 0; i < underglist.size(); i++){
+                String Id = underglist.get(i).getId();
+                String Name = underglist.get(i).getName();
+                String DoB = underglist.get(i).getDoB();
+                String Address = underglist.get(i).getAddress();
+                String Email = underglist.get(i).getEmail();
+                String Contact = underglist.get(i).getContact();
+                String RegDate = underglist.get(i).getRegDate();
+                String Intake = underglist.get(i).getIntake();
+                String Stream = underglist.get(i).getStream();
+                String faculty_id = underglist.get(i).getFaculty();
+                String Faculty;
+                switch (faculty_id) {
+                    case "FCS01":
+                        Faculty="Computer Science";
+                        break;
+                    case "FBS02":
+                        Faculty="Bussiness";
+                        break;
+                    default:
+                        Faculty="Engineering";
+                        break;
+                }
+                Object[] ins = {Id, Name, DoB, Address, Email, Contact,RegDate,Intake,Stream,Faculty};
+
+                tableModel.addRow(ins);
+
+            }
+            jTable1.setModel(tableModel);
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(ViewData.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jButtonUndergraduatesActionPerformed
+
+    private void jButtonPostgradatesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPostgradatesActionPerformed
+        try {
+            ArrayList<Postgraduate>postglist = PostgraduateController.getAllPostgraduates();
+            String col[] = {"Student_Id","Student_Name","DoB","Address", "Email", "Contact","Registration_Date","Intake","Qualification","Completion_Year","Faculty"};
+
+            DefaultTableModel tableModel = new DefaultTableModel(col, 0);
+                                            // The 0 argument is number rows.
+
+            JTable table = new JTable(tableModel);
+            for (int i = 0; i < postglist.size(); i++){
+                String Id = postglist.get(i).getId();
+                String Name = postglist.get(i).getName();
+                String DoB = postglist.get(i).getDoB();
+                String Address = postglist.get(i).getAddress();
+                String Email = postglist.get(i).getEmail();
+                String Contact = postglist.get(i).getContact();
+                String RegDate = postglist.get(i).getRegDate();
+                String Intake = postglist.get(i).getIntake();
+                String Qualification_Type = postglist.get(i).getQualificationType();
+                String Completion_Year = postglist.get(i).getCompletionYear();
+                String faculty_id = postglist.get(i).getFaculty();
+                String Faculty;
+                switch (faculty_id) {
+                    case "FCS01":
+                        Faculty="Computer Science";
+                        break;
+                    case "FBS02":
+                        Faculty="Bussiness";
+                        break;
+                    default:
+                        Faculty="Engineering";
+                        break;
+                }
+                Object[] ins = {Id, Name, DoB, Address, Email, Contact,RegDate,Intake,Qualification_Type,Completion_Year,Faculty};
+
+                tableModel.addRow(ins);
+
+            }
+            jTable1.setModel(tableModel);
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(ViewData.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jButtonPostgradatesActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -75,5 +277,7 @@ public class ViewData extends javax.swing.JPanel {
     private javax.swing.JButton jButtonLectures;
     private javax.swing.JButton jButtonPostgradates;
     private javax.swing.JButton jButtonUndergraduates;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
 }

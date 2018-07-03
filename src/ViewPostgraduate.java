@@ -236,7 +236,7 @@ public class ViewPostgraduate extends javax.swing.JPanel {
             String[] Faculty={"Computer Science","Bussiness","Engineering"};
             int j=0;
             for(int i=0;i<Fid.length;i++){
-                if(Fid[i].equals(postg.getFacultyId())){
+                if(Fid[i].equals(postg.getFaculty())){
                     jTextFaculty.setText(Faculty[j]);
                     i=i+1;
                     j=j+1;

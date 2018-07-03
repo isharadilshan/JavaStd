@@ -91,10 +91,10 @@ public class Postgraduate {
     public void setQualificationType(String QualificationType){
         this.QualificationType=QualificationType;
     }
-    public String getFacultyId(){
+    public String getFaculty(){
         return this.FacultyId;
     }
-    public void setFacultyId(String FacultyId){
+    public void setFaculty(String FacultyId){
         this.FacultyId=FacultyId;
     }
     

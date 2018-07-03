@@ -210,12 +210,12 @@ public class AdminPanel extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonEnrollmentActionPerformed
 
     private void jButtonEvaluationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEvaluationActionPerformed
-//        ViewUndergraduate stu=new ViewUndergraduate();
-//        masterPanel.removeAll();
-//        masterPanel.add(stu);
-//        masterPanel.repaint();
-//        masterPanel.validate();
-//        stu.setVisible(true);
+        ViewData stu=new ViewData();
+        masterPanel.removeAll();
+        masterPanel.add(stu);
+        masterPanel.repaint();
+        masterPanel.validate();
+        stu.setVisible(true);
     }//GEN-LAST:event_jButtonEvaluationActionPerformed
 
     /**

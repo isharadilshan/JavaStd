@@ -206,8 +206,7 @@ public class LecturerLogin extends javax.swing.JFrame {
                     System.out.println("No");
                 }
             } catch (SQLException ex) {
-                
-                Logger.getLogger(StudentLogin.class.getName()).log(Level.SEVERE, null, ex);
+                System.out.println("Connection Error");
             } catch (NullPointerException ex) {
                 System.out.println("Connection Error");
             }

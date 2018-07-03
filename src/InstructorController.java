@@ -55,15 +55,15 @@ public class InstructorController {
             return null;
         }
     }
-    public static ArrayList<Lecturer> getAllLecturers() throws ClassNotFoundException, SQLException{
+    public static ArrayList<Instructor> getAllInstructors() throws ClassNotFoundException, SQLException{
         Connection con = MyConnection.getConnection();
         Statement stm = con.createStatement();
-        ResultSet rst = stm.executeQuery("Select * From Lecturer");
-        ArrayList<Lecturer>leclist=new ArrayList<>();
+        ResultSet rst = stm.executeQuery("Select * From Instructor");
+        ArrayList<Instructor>inslist=new ArrayList<>();
         while(rst.next()){
-            Lecturer lec = new Lecturer(rst.getString("id"),rst.getString("Lecturer_Name"),rst.getString("DoB"),rst.getString("Address"),rst.getString("Email"),rst.getString("Contact"));
-            leclist.add(lec);
+            Instructor ins = new Instructor(rst.getString("Instructor_Id"),rst.getString("Instructor_Name"),rst.getString("DoB"),rst.getString("Address"),rst.getString("Email"),rst.getString("Contact"));
+            inslist.add(ins);
         }
-        return leclist;
+        return inslist;
     }
 }

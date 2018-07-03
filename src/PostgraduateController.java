@@ -23,7 +23,7 @@ public class PostgraduateController {
         stm.setObject(8, postg.getIntake());
         stm.setObject(9, postg.getQualificationType());
         stm.setObject(10, postg.getCompletionYear());
-        stm.setObject(11, postg.getFacultyId());
+        stm.setObject(11, postg.getFaculty());
         return stm.executeUpdate();
     }
     public static int updatePostgraduate(Postgraduate postg) throws ClassNotFoundException, SQLException{
@@ -40,7 +40,7 @@ public class PostgraduateController {
         stm.setObject(7, postg.getIntake());
         stm.setObject(8, postg.getQualificationType());
         stm.setObject(9, postg.getCompletionYear());
-        stm.setObject(10, postg.getFacultyId());
+        stm.setObject(10, postg.getFaculty());
         return stm.executeUpdate();
     }
      public static int deletePostgraduate(String id) throws ClassNotFoundException, SQLException{

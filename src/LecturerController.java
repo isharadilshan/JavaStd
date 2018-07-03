@@ -60,7 +60,7 @@ public class LecturerController {
         ResultSet rst = stm.executeQuery("Select * From Lecturer");
         ArrayList<Lecturer>leclist=new ArrayList<>();
         while(rst.next()){
-            Lecturer lec = new Lecturer(rst.getString("id"),rst.getString("Lecturer_Name"),rst.getString("DoB"),rst.getString("Address"),rst.getString("Email"),rst.getString("Contact"));
+            Lecturer lec = new Lecturer(rst.getString("Lecturer_Id"),rst.getString("Lecturer_Name"),rst.getString("DoB"),rst.getString("Address"),rst.getString("Email"),rst.getString("Contact"));
             leclist.add(lec);
         }
         return leclist;

@@ -153,15 +153,15 @@ public class RegUndergraduate extends javax.swing.JPanel {
         jPanel2.add(jLabelRank, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 620, 100, 36));
 
         jLabelSubject3.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabelSubject3.setText("Subject 3 :-");
+        jLabelSubject3.setText("Physics:-");
         jPanel2.add(jLabelSubject3, new org.netbeans.lib.awtextra.AbsoluteConstraints(356, 623, 159, 36));
 
         jLabelSubject2.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabelSubject2.setText("Subject 2 :-");
+        jLabelSubject2.setText("Chemistry :-");
         jPanel2.add(jLabelSubject2, new org.netbeans.lib.awtextra.AbsoluteConstraints(63, 686, -1, 36));
 
         jLabelSubject1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabelSubject1.setText("Subject 1 :-");
+        jLabelSubject1.setText("Mathematics :-");
         jPanel2.add(jLabelSubject1, new org.netbeans.lib.awtextra.AbsoluteConstraints(63, 623, -1, 36));
         jPanel2.add(jTextZScore, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 690, 89, 36));
 
@@ -287,7 +287,7 @@ public class RegUndergraduate extends javax.swing.JPanel {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 918, Short.MAX_VALUE)
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
 

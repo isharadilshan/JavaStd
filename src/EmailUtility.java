@@ -8,6 +8,6 @@
  *
  * @author Bunty
  */
-class StudentLogin {
+public class EmailUtility {
     
 }

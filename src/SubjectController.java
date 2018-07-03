@@ -48,7 +48,7 @@ public class SubjectController {
         return stm.executeUpdate();
     }
     public static Subject searchSubject(String id) throws ClassNotFoundException, SQLException{
-        String sql = "Select * From Subject where SubjectId=?";
+        String sql = "Select * From Subject where StudentId=?";
         Connection con = MyConnection.getConnection();
         PreparedStatement stm = con.prepareStatement(sql);
         stm.setObject(1, id);

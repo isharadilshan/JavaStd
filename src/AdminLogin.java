@@ -203,7 +203,7 @@ public class AdminLogin extends javax.swing.JFrame {
                         
                     }
                 } catch (SQLException ex) {
-                    Logger.getLogger(StudentLogin.class.getName()).log(Level.SEVERE, null, ex);
+                    System.out.println("Invalid Input");
                 }
                 
             } catch (ClassNotFoundException ex) {
