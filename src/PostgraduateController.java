@@ -69,7 +69,7 @@ public class PostgraduateController {
         ResultSet rst = stm.executeQuery("Select * From Postgraduate");
         ArrayList<Postgraduate>postglist=new ArrayList<>();
         while(rst.next()){
-            Postgraduate postg = new Postgraduate(rst.getString("Student_Id"),rst.getString("Name"),rst.getString("DoB"),rst.getString("Address"),rst.getString("Email"),rst.getString("Contact"),rst.getString("RegDate"),rst.getString("Intake"),rst.getString("Qualificatioin_Type"),rst.getString("Completion_Year"),rst.getString("Faculty_Faculty_Id"));
+            Postgraduate postg = new Postgraduate(rst.getString("Student_Id"),rst.getString("Name"),rst.getString("DoB"),rst.getString("Address"),rst.getString("Email"),rst.getString("Contact"),rst.getString("RegDate"),rst.getString("Intake"),rst.getString("Qualification_Type"),rst.getString("Completion_Year"),rst.getString("Faculty_Faculty_Id"));
             postglist.add(postg);
         }
         return postglist;

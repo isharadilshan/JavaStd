@@ -17,10 +17,10 @@ import model.Postgraduate;
  */
 public class RegPostgraduate extends javax.swing.JPanel {
     AdminPanel adminPanel;
-    String CompletionYear;
-    String Faculty;
-    String Year;
-    String Sem;
+    String CompletionYear = "2005";
+    String Faculty = "Computer Science";
+    String Year = "2017";
+    String Sem = "Semester 1";
     String faculty;
     String DoB;
     String RegDate;

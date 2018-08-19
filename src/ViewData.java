@@ -230,7 +230,7 @@ public class ViewData extends javax.swing.JPanel {
     private void jButtonPostgradatesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPostgradatesActionPerformed
         try {
             ArrayList<Postgraduate>postglist = PostgraduateController.getAllPostgraduates();
-            String col[] = {"Student_Id","Student_Name","DoB","Address", "Email", "Contact","Registration_Date","Intake","Qualification","Completion_Year","Faculty"};
+            String col[] = {"Student_Id","Student_Name","DoB","Address", "Email", "Contact","Registration_Date","Intake","Completion_Year","Qualification_Type","Faculty"};
 
             DefaultTableModel tableModel = new DefaultTableModel(col, 0);
                                             // The 0 argument is number rows.

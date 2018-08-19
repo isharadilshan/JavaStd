@@ -311,7 +311,7 @@ public class PostgraduateEvaluation extends javax.swing.JPanel {
 
     private void jButtonStuIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonStuIdActionPerformed
         String Id=jTextStuId.getText();
-        sbj = SubjectController.searchSubject(Id)
+        sbj = SubjectController.searchSubject(Id);
     }//GEN-LAST:event_jButtonStuIdActionPerformed
 
 

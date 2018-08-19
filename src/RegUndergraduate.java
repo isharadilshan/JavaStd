@@ -9,11 +9,11 @@ import model.Undergraduate;
 
 public class RegUndergraduate extends javax.swing.JPanel {
     AdminPanel adminPanel;
-    String Faculty;
-    String Year;
-    String Sem;
+    String Faculty = "Computer Science";
+    String Year = "2017";
+    String Sem = "Semster 1";
     String faculty;
-    String stream;
+    String stream = "Physical Stream";
     String streamid;
     String id;
     String DoB;
@@ -314,6 +314,9 @@ public class RegUndergraduate extends javax.swing.JPanel {
             jLabelSubject2.setText("Econ");
             jLabelSubject3.setText("Accounting");
         }
+        if(stream==null){
+            stream ="Physical Stream";
+        }
     }//GEN-LAST:event_jComboStreamActionPerformed
 
     private void jButtonClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonClearActionPerformed
@@ -352,8 +355,8 @@ public class RegUndergraduate extends javax.swing.JPanel {
             }else{
                 streamid="EC001";
             }
-            Stream news=new Stream(streamid,stream,jTextSubject1.getText(),jTextSubject2.getText(),jTextSubject3.getText(),jTextEnglish.getText(),jTextRank.getText(),jTextZScore.getText(),id);
-            StreamController.addStream(news);
+            Stream str=new Stream(streamid,stream,jTextSubject1.getText(),jTextSubject2.getText(),jTextSubject3.getText(),jTextEnglish.getText(),jTextRank.getText(),jTextZScore.getText(),id);
+            StreamController.addStream(str);
             RegUndergraduate regUnderg=new RegUndergraduate(adminPanel);
             adminPanel.masterPanel.removeAll();
             adminPanel.masterPanel.add(regUnderg);
