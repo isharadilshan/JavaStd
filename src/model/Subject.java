@@ -11,20 +11,18 @@ public class Subject {
     private String Fees;
     private String TimeSlot;
     private String Venue;
-    private String RegDate;
-    private String StudentId;
+    private String Semester;
     private String LectureId;
     private String FacultyId;
     public Subject(){
     }
-    public Subject(String Subject_Id,String Name,String Fees,String TimeSlot,String Venue,String RegDate,String StudentId,String LectureId,String FacultyId){
+    public Subject(String Subject_Id,String Name,String Fees,String TimeSlot,String Venue,String Semester,String LectureId,String FacultyId){
         this.Subject_Id=Subject_Id;
         this.Name=Name;
         this.Fees=Fees;
         this.TimeSlot=TimeSlot;
         this.Venue=Venue;
-        this.RegDate=RegDate;
-        this.StudentId=StudentId;
+        this.Semester=Semester;
         this.LectureId=LectureId;
         this.FacultyId=FacultyId;
     }
@@ -58,17 +56,11 @@ public class Subject {
     public void setVenue(String Venue){
         this.Venue=Venue;
     }
-    public String getRegDate(){
-        return this.RegDate;          
+    public String getSemester(){
+        return this.Semester;          
     }
-    public void setRegDate(String RegDate){
-        this.RegDate=RegDate;
-    }
-    public String getStudentId(){
-        return this.StudentId;
-    }
-    public void SetStudentId(String StudentId){
-        this.StudentId=StudentId;
+    public void setSemester(String Semester){
+        this.Semester=Semester;
     }
      public String getLectureId(){
         return this.LectureId;

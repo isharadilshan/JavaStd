@@ -1,7 +1,23 @@
 
+import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import model.Enroll;
+import model.Postgraduate;
+
+
 public class PostgraduateEvaluation extends javax.swing.JPanel {
     AdminPanel adminPanel;
     String Id;
+    Postgraduate postg = new Postgraduate("","","","","","","","","","","");
+    Enroll[] subjectsSem1 = new Enroll[8];
+    Enroll[] selectedSubjectsSem1 = new Enroll[8];
+    Enroll[] subjectsSem2 = new Enroll[8];
+    Enroll[] selectedSubjectsSem2 = new Enroll[8];
+    int countSem1=0,countSem2=0;
     /**
      * Creates new form PostgraduateEvaluation
      */
@@ -24,12 +40,12 @@ public class PostgraduateEvaluation extends javax.swing.JPanel {
         jTextStuId = new javax.swing.JTextField();
         jLabelCreditS13 = new javax.swing.JLabel();
         jLabelSem2 = new javax.swing.JLabel();
-        jCheckBoxS11 = new javax.swing.JCheckBox();
-        jCheckBoxS16 = new javax.swing.JCheckBox();
-        jCheckBoxS12 = new javax.swing.JCheckBox();
         jCheckBoxS13 = new javax.swing.JCheckBox();
+        jCheckBoxS18 = new javax.swing.JCheckBox();
         jCheckBoxS14 = new javax.swing.JCheckBox();
         jCheckBoxS15 = new javax.swing.JCheckBox();
+        jCheckBoxS16 = new javax.swing.JCheckBox();
+        jCheckBoxS17 = new javax.swing.JCheckBox();
         jLabelCreditS16 = new javax.swing.JLabel();
         jLabelCreditS15 = new javax.swing.JLabel();
         jLabelCreditS14 = new javax.swing.JLabel();
@@ -51,12 +67,12 @@ public class PostgraduateEvaluation extends javax.swing.JPanel {
         jLabelCashS14 = new javax.swing.JLabel();
         jButtonSubS21 = new javax.swing.JButton();
         jButtonSubS22 = new javax.swing.JButton();
-        jCheckBoxS21 = new javax.swing.JCheckBox();
-        jCheckBoxS22 = new javax.swing.JCheckBox();
         jCheckBoxS23 = new javax.swing.JCheckBox();
         jCheckBoxS24 = new javax.swing.JCheckBox();
         jCheckBoxS25 = new javax.swing.JCheckBox();
         jCheckBoxS26 = new javax.swing.JCheckBox();
+        jCheckBoxS27 = new javax.swing.JCheckBox();
+        jCheckBoxS28 = new javax.swing.JCheckBox();
         jLabelCreditS21 = new javax.swing.JLabel();
         jLabelCreditS22 = new javax.swing.JLabel();
         jLabelCreditS23 = new javax.swing.JLabel();
@@ -100,34 +116,59 @@ public class PostgraduateEvaluation extends javax.swing.JPanel {
         jLabelSem2.setText("Semester 2");
         add(jLabelSem2, new org.netbeans.lib.awtextra.AbsoluteConstraints(662, 151, 141, 43));
 
-        jCheckBoxS11.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
-        jCheckBoxS11.setText("Database I");
-        add(jCheckBoxS11, new org.netbeans.lib.awtextra.AbsoluteConstraints(36, 373, 249, 43));
+        jCheckBoxS13.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
+        jCheckBoxS13.setText("Database I");
+        jCheckBoxS13.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBoxS13ActionPerformed(evt);
+            }
+        });
+        add(jCheckBoxS13, new org.netbeans.lib.awtextra.AbsoluteConstraints(36, 373, 249, 43));
+
+        jCheckBoxS18.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
+        jCheckBoxS18.setText("Statistics I");
+        jCheckBoxS18.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBoxS18ActionPerformed(evt);
+            }
+        });
+        add(jCheckBoxS18, new org.netbeans.lib.awtextra.AbsoluteConstraints(36, 678, 249, 43));
+
+        jCheckBoxS14.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
+        jCheckBoxS14.setText("Computer Systems I");
+        jCheckBoxS14.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBoxS14ActionPerformed(evt);
+            }
+        });
+        add(jCheckBoxS14, new org.netbeans.lib.awtextra.AbsoluteConstraints(36, 434, 249, 43));
+
+        jCheckBoxS15.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
+        jCheckBoxS15.setText("Laboratory I");
+        jCheckBoxS15.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBoxS15ActionPerformed(evt);
+            }
+        });
+        add(jCheckBoxS15, new org.netbeans.lib.awtextra.AbsoluteConstraints(36, 495, 249, 43));
 
         jCheckBoxS16.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
-        jCheckBoxS16.setText("Statistics I");
+        jCheckBoxS16.setText("Mathematical Methods I");
         jCheckBoxS16.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jCheckBoxS16ActionPerformed(evt);
             }
         });
-        add(jCheckBoxS16, new org.netbeans.lib.awtextra.AbsoluteConstraints(36, 678, 249, 43));
+        add(jCheckBoxS16, new org.netbeans.lib.awtextra.AbsoluteConstraints(36, 556, 249, 43));
 
-        jCheckBoxS12.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
-        jCheckBoxS12.setText("Computer Systems I");
-        add(jCheckBoxS12, new org.netbeans.lib.awtextra.AbsoluteConstraints(36, 434, 249, 43));
-
-        jCheckBoxS13.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
-        jCheckBoxS13.setText("Laboratory I");
-        add(jCheckBoxS13, new org.netbeans.lib.awtextra.AbsoluteConstraints(36, 495, 249, 43));
-
-        jCheckBoxS14.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
-        jCheckBoxS14.setText("Mathematical Methods I");
-        add(jCheckBoxS14, new org.netbeans.lib.awtextra.AbsoluteConstraints(36, 556, 249, 43));
-
-        jCheckBoxS15.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
-        jCheckBoxS15.setText("Computer Networks I");
-        add(jCheckBoxS15, new org.netbeans.lib.awtextra.AbsoluteConstraints(36, 617, 249, 43));
+        jCheckBoxS17.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
+        jCheckBoxS17.setText("Computer Networks I");
+        jCheckBoxS17.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBoxS17ActionPerformed(evt);
+            }
+        });
+        add(jCheckBoxS17, new org.netbeans.lib.awtextra.AbsoluteConstraints(36, 617, 249, 43));
 
         jLabelCreditS16.setText("2 Credits");
         add(jLabelCreditS16, new org.netbeans.lib.awtextra.AbsoluteConstraints(303, 562, 64, 30));
@@ -205,34 +246,59 @@ public class PostgraduateEvaluation extends javax.swing.JPanel {
         jButtonSubS22.setText("Programming II");
         add(jButtonSubS22, new org.netbeans.lib.awtextra.AbsoluteConstraints(554, 313, 249, 42));
 
-        jCheckBoxS21.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
-        jCheckBoxS21.setText("Database II");
-        add(jCheckBoxS21, new org.netbeans.lib.awtextra.AbsoluteConstraints(554, 373, 249, 43));
-
-        jCheckBoxS22.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
-        jCheckBoxS22.setText("Computer Systems II");
-        add(jCheckBoxS22, new org.netbeans.lib.awtextra.AbsoluteConstraints(554, 434, 249, 43));
-
         jCheckBoxS23.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
-        jCheckBoxS23.setText("Laboratory II");
-        add(jCheckBoxS23, new org.netbeans.lib.awtextra.AbsoluteConstraints(554, 495, 249, 43));
+        jCheckBoxS23.setText("Database II");
+        jCheckBoxS23.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBoxS23ActionPerformed(evt);
+            }
+        });
+        add(jCheckBoxS23, new org.netbeans.lib.awtextra.AbsoluteConstraints(554, 373, 249, 43));
 
         jCheckBoxS24.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
-        jCheckBoxS24.setText("Mathematical Methods II");
-        add(jCheckBoxS24, new org.netbeans.lib.awtextra.AbsoluteConstraints(554, 556, 249, 43));
+        jCheckBoxS24.setText("Computer Systems II");
+        jCheckBoxS24.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBoxS24ActionPerformed(evt);
+            }
+        });
+        add(jCheckBoxS24, new org.netbeans.lib.awtextra.AbsoluteConstraints(554, 434, 249, 43));
 
         jCheckBoxS25.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
-        jCheckBoxS25.setText("Computer Networks II");
-        add(jCheckBoxS25, new org.netbeans.lib.awtextra.AbsoluteConstraints(554, 617, 249, 43));
+        jCheckBoxS25.setText("Laboratory II");
+        jCheckBoxS25.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBoxS25ActionPerformed(evt);
+            }
+        });
+        add(jCheckBoxS25, new org.netbeans.lib.awtextra.AbsoluteConstraints(554, 495, 249, 43));
 
         jCheckBoxS26.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
-        jCheckBoxS26.setText("Statistics II");
+        jCheckBoxS26.setText("Mathematical Methods II");
         jCheckBoxS26.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jCheckBoxS26ActionPerformed(evt);
             }
         });
-        add(jCheckBoxS26, new org.netbeans.lib.awtextra.AbsoluteConstraints(554, 678, 249, 43));
+        add(jCheckBoxS26, new org.netbeans.lib.awtextra.AbsoluteConstraints(554, 556, 249, 43));
+
+        jCheckBoxS27.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
+        jCheckBoxS27.setText("Computer Networks II");
+        jCheckBoxS27.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBoxS27ActionPerformed(evt);
+            }
+        });
+        add(jCheckBoxS27, new org.netbeans.lib.awtextra.AbsoluteConstraints(554, 617, 249, 43));
+
+        jCheckBoxS28.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
+        jCheckBoxS28.setText("Statistics II");
+        jCheckBoxS28.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBoxS28ActionPerformed(evt);
+            }
+        });
+        add(jCheckBoxS28, new org.netbeans.lib.awtextra.AbsoluteConstraints(554, 678, 249, 43));
 
         jLabelCreditS21.setText("3 Credits");
         add(jLabelCreditS21, new org.netbeans.lib.awtextra.AbsoluteConstraints(815, 259, 64, 30));
@@ -297,13 +363,29 @@ public class PostgraduateEvaluation extends javax.swing.JPanel {
         add(jButtonProceedS2, new org.netbeans.lib.awtextra.AbsoluteConstraints(822, 755, -1, 49));
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jCheckBoxS16ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBoxS16ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jCheckBoxS16ActionPerformed
+    private void jCheckBoxS18ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBoxS18ActionPerformed
+        if(countSem1<=3){
+            if(jCheckBoxS18.isSelected()){
+                Enroll enr = new Enroll("CS1108",postg.getId(),postg.getRegDate());
+                subjectsSem1[7]=enr;
+            }
+            countSem1++;
+        }else{
+            jCheckBoxS18.setEnabled(false);
+        }
+    }//GEN-LAST:event_jCheckBoxS18ActionPerformed
 
-    private void jCheckBoxS26ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBoxS26ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jCheckBoxS26ActionPerformed
+    private void jCheckBoxS28ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBoxS28ActionPerformed
+        if(countSem2<=3){
+            if(jCheckBoxS28.isSelected()){
+                Enroll enr = new Enroll("CS1208",postg.getId(),postg.getRegDate());
+                subjectsSem2[7]=enr;
+            }
+            countSem2++;
+        }else{
+            jCheckBoxS28.setEnabled(false);
+        }
+    }//GEN-LAST:event_jCheckBoxS28ActionPerformed
 
     private void jButtonProceedS1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonProceedS1ActionPerformed
         // TODO add your handling code here:
@@ -311,8 +393,144 @@ public class PostgraduateEvaluation extends javax.swing.JPanel {
 
     private void jButtonStuIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonStuIdActionPerformed
         String Id=jTextStuId.getText();
-        sbj = SubjectController.searchSubject(Id);
+        try {
+            postg = PostgraduateController.searchPostgraduate(Id);
+            // object eka one wenne reg date ekata methana hoyapan sem gana
+            String reg = postg.getRegDate();
+            Date date1=new SimpleDateFormat("yyyy-MM-dd").parse(reg);
+            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+            Date date2 = new Date();
+            long diff = date2.getTime() - date1.getTime();
+            int days =  (int) (diff / 1000 / 60 / 60 / 24);
+            if(days<180){
+                
+            }
+            
+        } catch (ClassNotFoundException | SQLException | ParseException ex) {
+            Logger.getLogger(PostgraduateEvaluation.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jButtonStuIdActionPerformed
+
+    private void jCheckBoxS13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBoxS13ActionPerformed
+        if(countSem1<=3){
+            if(jCheckBoxS13.isSelected()){
+                Enroll enr = new Enroll("CS1103",postg.getId(),postg.getRegDate());
+                subjectsSem2[2]=enr;
+            }
+            countSem1++;
+        }else{
+            jCheckBoxS13.setEnabled(false);
+        }
+
+    }//GEN-LAST:event_jCheckBoxS13ActionPerformed
+
+    private void jCheckBoxS14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBoxS14ActionPerformed
+        if(countSem1<=3){
+            if(jCheckBoxS14.isSelected()){
+                Enroll enr = new Enroll("CS1104",postg.getId(),postg.getRegDate());
+                subjectsSem1[3]=enr;
+            }
+            countSem1++;
+        }else{
+            jCheckBoxS14.setEnabled(false);
+        }
+    }//GEN-LAST:event_jCheckBoxS14ActionPerformed
+
+    private void jCheckBoxS15ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBoxS15ActionPerformed
+        if(countSem1<=3){
+            if(jCheckBoxS15.isSelected()){
+                Enroll enr = new Enroll("CS1105",postg.getId(),postg.getRegDate());
+                subjectsSem1[4]=enr;
+            }
+            countSem1++;
+        }else{
+            jCheckBoxS15.setEnabled(false);
+        }
+    }//GEN-LAST:event_jCheckBoxS15ActionPerformed
+
+    private void jCheckBoxS16ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBoxS16ActionPerformed
+        if(countSem1<=3){
+            if(jCheckBoxS16.isSelected()){
+                Enroll enr = new Enroll("CS1106",postg.getId(),postg.getRegDate());
+                subjectsSem1[5]=enr;
+            }
+            countSem1++;
+        }else{
+            jCheckBoxS16.setEnabled(false);
+        }
+    }//GEN-LAST:event_jCheckBoxS16ActionPerformed
+
+    private void jCheckBoxS17ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBoxS17ActionPerformed
+        if(countSem1<=3){
+            if(jCheckBoxS17.isSelected()){
+                Enroll enr = new Enroll("CS1107",postg.getId(),postg.getRegDate());
+                subjectsSem1[6]=enr;
+            }
+            countSem1++;
+        }else{
+            jCheckBoxS17.setEnabled(false);
+        }
+    }//GEN-LAST:event_jCheckBoxS17ActionPerformed
+
+    private void jCheckBoxS23ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBoxS23ActionPerformed
+        if(countSem2<=3){
+            if(jCheckBoxS23.isSelected()){
+                Enroll enr = new Enroll("CS1203",postg.getId(),postg.getRegDate());
+                subjectsSem2[2]=enr;
+            }
+            countSem2++;
+        }else{
+            jCheckBoxS23.setEnabled(false);
+        }
+    }//GEN-LAST:event_jCheckBoxS23ActionPerformed
+
+    private void jCheckBoxS24ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBoxS24ActionPerformed
+        if(countSem2<=3){
+            if(jCheckBoxS24.isSelected()){
+                Enroll enr = new Enroll("CS1204",postg.getId(),postg.getRegDate());
+                subjectsSem2[3]=enr;
+            }
+            countSem2++;
+        }else{
+            jCheckBoxS24.setEnabled(false);
+        }
+    }//GEN-LAST:event_jCheckBoxS24ActionPerformed
+
+    private void jCheckBoxS25ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBoxS25ActionPerformed
+        if(countSem2<=3){
+            if(jCheckBoxS25.isSelected()){
+                Enroll enr = new Enroll("CS1205",postg.getId(),postg.getRegDate());
+                subjectsSem2[4]=enr;
+            }
+            countSem2++;
+        }else{
+            jCheckBoxS25.setEnabled(false);
+        }
+    }//GEN-LAST:event_jCheckBoxS25ActionPerformed
+
+    private void jCheckBoxS26ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBoxS26ActionPerformed
+        if(countSem2<=3){
+            if(jCheckBoxS26.isSelected()){
+                Enroll enr = new Enroll("CS1206",postg.getId(),postg.getRegDate());
+                subjectsSem2[2]=enr;
+            }
+            countSem2++;
+        }else{
+            jCheckBoxS26.setEnabled(false);
+        }
+    }//GEN-LAST:event_jCheckBoxS26ActionPerformed
+
+    private void jCheckBoxS27ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBoxS27ActionPerformed
+        if(countSem2<=3){
+            if(jCheckBoxS27.isSelected()){
+                Enroll enr = new Enroll("CS1207",postg.getId(),postg.getRegDate());
+                subjectsSem2[2]=enr;
+            }
+            countSem2++;
+        }else{
+            jCheckBoxS27.setEnabled(false);
+        }
+    }//GEN-LAST:event_jCheckBoxS27ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -325,18 +543,18 @@ public class PostgraduateEvaluation extends javax.swing.JPanel {
     private javax.swing.JButton jButtonSubS12;
     private javax.swing.JButton jButtonSubS21;
     private javax.swing.JButton jButtonSubS22;
-    private javax.swing.JCheckBox jCheckBoxS11;
-    private javax.swing.JCheckBox jCheckBoxS12;
     private javax.swing.JCheckBox jCheckBoxS13;
     private javax.swing.JCheckBox jCheckBoxS14;
     private javax.swing.JCheckBox jCheckBoxS15;
     private javax.swing.JCheckBox jCheckBoxS16;
-    private javax.swing.JCheckBox jCheckBoxS21;
-    private javax.swing.JCheckBox jCheckBoxS22;
+    private javax.swing.JCheckBox jCheckBoxS17;
+    private javax.swing.JCheckBox jCheckBoxS18;
     private javax.swing.JCheckBox jCheckBoxS23;
     private javax.swing.JCheckBox jCheckBoxS24;
     private javax.swing.JCheckBox jCheckBoxS25;
     private javax.swing.JCheckBox jCheckBoxS26;
+    private javax.swing.JCheckBox jCheckBoxS27;
+    private javax.swing.JCheckBox jCheckBoxS28;
     private javax.swing.JLabel jLabelCashS11;
     private javax.swing.JLabel jLabelCashS12;
     private javax.swing.JLabel jLabelCashS13;

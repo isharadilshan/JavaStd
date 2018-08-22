@@ -178,7 +178,6 @@ public class ViewData extends javax.swing.JPanel {
 
             }
             jTable1.setModel(tableModel);
-            
         } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(ViewData.class.getName()).log(Level.SEVERE, null, ex);
         }

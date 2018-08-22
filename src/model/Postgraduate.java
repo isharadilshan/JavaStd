@@ -31,6 +31,7 @@ public class Postgraduate {
         this.QualificationType=QualificationType;
         this.FacultyId=FacultyId;
     }
+
     public String getId(){
         return this.Student_Id;
     }
@@ -70,7 +71,7 @@ public class Postgraduate {
     public String getRegDate(){
         return this.RegDate;
     }
-    public void steRegDate(String RegDate){
+    public void setRegDate(String RegDate){
         this.RegDate=RegDate;
     }
     public String getCompletionYear(){
