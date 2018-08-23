@@ -56,11 +56,10 @@ public class SubjectController {
             return null;
         }
     }
-    public static ArrayList<Subject> getAllSubjects(String id) throws ClassNotFoundException, SQLException{
+    public static ArrayList<Subject> getAllSubjects() throws ClassNotFoundException, SQLException{
         String sql="Select * From subject";
         Connection con = MyConnection.getConnection();
         PreparedStatement stm = con.prepareStatement(sql);
-        stm.setObject(1, id);
         ResultSet rst = stm.executeQuery();
         ArrayList<Subject>subjectlist=new ArrayList<>();
         while(rst.next()){

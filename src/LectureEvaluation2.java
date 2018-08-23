@@ -132,9 +132,9 @@ public class LectureEvaluation2 extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void ButtonBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonBackActionPerformed
-        LectureEvaluation LecEval;
-        LecEval = new LectureEvaluation();
-        LecEval.setVisible(true);
+        LecturePanel LecPan;
+        LecPan = new LecturePanel();
+        LecPan.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_ButtonBackActionPerformed
 

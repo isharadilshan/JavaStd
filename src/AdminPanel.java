@@ -22,10 +22,12 @@ public class AdminPanel extends javax.swing.JFrame {
         jButtonLecturer = new javax.swing.JButton();
         jButtonUndergraduate = new javax.swing.JButton();
         masterPanel = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
         jButtonInstructor = new javax.swing.JButton();
         jButtonExit = new javax.swing.JButton();
-        jButtonEnrollment = new javax.swing.JButton();
+        jButtonEmail = new javax.swing.JButton();
         jButtonEvaluation = new javax.swing.JButton();
+        jButtonEnrollment = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -61,6 +63,9 @@ public class AdminPanel extends javax.swing.JFrame {
 
         masterPanel.setLayout(new java.awt.BorderLayout());
 
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/nsbm.jpg"))); // NOI18N
+        masterPanel.add(jLabel1, java.awt.BorderLayout.CENTER);
+
         jButtonInstructor.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jButtonInstructor.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Instructor.png"))); // NOI18N
         jButtonInstructor.setText("Instructor");
@@ -79,12 +84,12 @@ public class AdminPanel extends javax.swing.JFrame {
             }
         });
 
-        jButtonEnrollment.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jButtonEnrollment.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Enrollment.png"))); // NOI18N
-        jButtonEnrollment.setText("Enrollment");
-        jButtonEnrollment.addActionListener(new java.awt.event.ActionListener() {
+        jButtonEmail.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jButtonEmail.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Email.png"))); // NOI18N
+        jButtonEmail.setText("Email");
+        jButtonEmail.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonEnrollmentActionPerformed(evt);
+                jButtonEmailActionPerformed(evt);
             }
         });
 
@@ -94,6 +99,15 @@ public class AdminPanel extends javax.swing.JFrame {
         jButtonEvaluation.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonEvaluationActionPerformed(evt);
+            }
+        });
+
+        jButtonEnrollment.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jButtonEnrollment.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Enrollment.png"))); // NOI18N
+        jButtonEnrollment.setText("Enrollment");
+        jButtonEnrollment.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonEnrollmentActionPerformed(evt);
             }
         });
 
@@ -109,37 +123,40 @@ public class AdminPanel extends javax.swing.JFrame {
                         .addComponent(jButtonPostgraduate, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButtonLecturer, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButtonInstructor, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButtonEnrollment, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButtonEvaluation, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(jButtonEmail, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButtonEvaluation, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButtonEnrollment, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(21, 21, 21)
                         .addComponent(jButtonExit, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(41, 41, 41)
-                .addComponent(masterPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 1003, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(75, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
+                .addComponent(masterPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 1051, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(36, 36, 36))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(138, 138, 138)
                 .addComponent(jButtonUndergraduate, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(46, 46, 46)
+                .addGap(18, 18, 18)
                 .addComponent(jButtonPostgraduate, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(50, 50, 50)
+                .addGap(18, 18, 18)
                 .addComponent(jButtonLecturer, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(50, 50, 50)
+                .addGap(18, 18, 18)
                 .addComponent(jButtonInstructor, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addComponent(jButtonEvaluation, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(45, 45, 45)
+                .addGap(24, 24, 24)
                 .addComponent(jButtonEnrollment, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(188, 188, 188)
+                .addGap(23, 23, 23)
+                .addComponent(jButtonEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 247, Short.MAX_VALUE)
                 .addComponent(jButtonExit, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(101, 101, 101))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(72, 72, 72)
-                .addComponent(masterPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 859, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(masterPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 867, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(42, 42, 42))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -170,18 +187,27 @@ public class AdminPanel extends javax.swing.JFrame {
         masterPanel.removeAll();
         masterPanel.add(regLec);
         masterPanel.repaint();
-        masterPanel.validate();
+        
+        masterPanel.revalidate();//na bn
         regLec.setVisible(true);
 
+        /*
         
+        manageAdminPanel = new ManageAdminPanel();
+        mainWindow.removeAll();
+        mainWindow.add(manageAdminPanel);
+        mainWindow.repaint();
+        mainWindow.revalidate();
+        manageAdminPanel.setVisible(true);
+        */
     }//GEN-LAST:event_jButtonLecturerActionPerformed
 
     private void jButtonUndergraduateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonUndergraduateActionPerformed
         RegUndergraduate stu=new RegUndergraduate(this);
-        masterPanel.removeAll();
+        masterPanel.removeAll();// kothntda danna one
         masterPanel.add(stu);
         masterPanel.repaint();
-        masterPanel.validate();
+        masterPanel.revalidate();
         stu.setVisible(true);
         
         
@@ -197,17 +223,17 @@ public class AdminPanel extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonInstructorActionPerformed
 
     private void jButtonExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonExitActionPerformed
-    System.exit(0);
+        System.exit(0);
     }//GEN-LAST:event_jButtonExitActionPerformed
 
-    private void jButtonEnrollmentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEnrollmentActionPerformed
-        PostgraduateEvaluation postge=new PostgraduateEvaluation(this);
+    private void jButtonEmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEmailActionPerformed
+        EmailPanel ePanel = new EmailPanel(this);
         masterPanel.removeAll();
-        masterPanel.add(postge);
+        masterPanel.add(ePanel);
         masterPanel.repaint();
         masterPanel.validate();
-        postge.setVisible(true);
-    }//GEN-LAST:event_jButtonEnrollmentActionPerformed
+        ePanel.setVisible(true);
+    }//GEN-LAST:event_jButtonEmailActionPerformed
 
     private void jButtonEvaluationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEvaluationActionPerformed
         ViewData stu=new ViewData();
@@ -217,6 +243,15 @@ public class AdminPanel extends javax.swing.JFrame {
         masterPanel.validate();
         stu.setVisible(true);
     }//GEN-LAST:event_jButtonEvaluationActionPerformed
+
+    private void jButtonEnrollmentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEnrollmentActionPerformed
+        PostgraduateEvaluation postge=new PostgraduateEvaluation(this);
+        masterPanel.removeAll();
+        masterPanel.add(postge);
+        masterPanel.repaint();
+        masterPanel.validate();
+        postge.setVisible(true);
+    }//GEN-LAST:event_jButtonEnrollmentActionPerformed
 
     /**
      * @param args the command line arguments
@@ -256,6 +291,7 @@ public class AdminPanel extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButtonEmail;
     private javax.swing.JButton jButtonEnrollment;
     private javax.swing.JButton jButtonEvaluation;
     private javax.swing.JButton jButtonExit;
@@ -263,6 +299,7 @@ public class AdminPanel extends javax.swing.JFrame {
     private javax.swing.JButton jButtonLecturer;
     private javax.swing.JButton jButtonPostgraduate;
     private javax.swing.JButton jButtonUndergraduate;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     public javax.swing.JPanel masterPanel;
     // End of variables declaration//GEN-END:variables

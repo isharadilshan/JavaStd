@@ -8,6 +8,7 @@ import javax.swing.table.DefaultTableModel;
 import model.Instructor;
 import model.Lecturer;
 import model.Postgraduate;
+import model.Subject;
 import model.Undergraduate;
 
 /*
@@ -45,6 +46,7 @@ public class ViewData extends javax.swing.JPanel {
         jButtonLectures = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
+        jButtonSubjects = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(153, 153, 255));
 
@@ -89,6 +91,13 @@ public class ViewData extends javax.swing.JPanel {
         ));
         jScrollPane1.setViewportView(jTable1);
 
+        jButtonSubjects.setText("Subjects");
+        jButtonSubjects.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonSubjectsActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -103,7 +112,9 @@ public class ViewData extends javax.swing.JPanel {
                         .addGap(27, 27, 27)
                         .addComponent(jButtonUndergraduates)
                         .addGap(29, 29, 29)
-                        .addComponent(jButtonPostgradates, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jButtonPostgradates, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(34, 34, 34)
+                        .addComponent(jButtonSubjects, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(50, 50, 50)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 920, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -117,7 +128,8 @@ public class ViewData extends javax.swing.JPanel {
                     .addComponent(jButtonInstructors, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButtonLectures, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButtonUndergraduates, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButtonPostgradates, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jButtonPostgradates, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButtonSubjects, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(51, 51, 51)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(247, Short.MAX_VALUE))
@@ -270,11 +282,44 @@ public class ViewData extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_jButtonPostgradatesActionPerformed
 
+    private void jButtonSubjectsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSubjectsActionPerformed
+        try {
+            ArrayList<Subject>sublist=SubjectController.getAllSubjects();
+            
+            String col[] = {"Subject_Id","Subject_Name","Fees", "Time Slot", "Venue", "Semester","Lecture_Id","Faculty_Id"};
+
+            DefaultTableModel tableModel = new DefaultTableModel(col, 0);
+                                            // The 0 argument is number rows.
+
+            JTable table = new JTable(tableModel);
+            for (int i = 0; i < sublist.size(); i++){
+                String Id = sublist.get(i).getId();
+                String Name = sublist.get(i).getName();
+                String Fees = sublist.get(i).getFees();
+                String TimeSlot = sublist.get(i).getTimeSlot();
+                String Venue = sublist.get(i).getVenue();
+                String Semester = sublist.get(i).getSemester();
+                String Lecture = sublist.get(i).getLectureId();
+                String Faculty = sublist.get(i).getFacultyId();
+
+                Object[] sub = {Id, Name,Fees,TimeSlot,Venue,Semester,Lecture,Faculty};
+
+                tableModel.addRow(sub);
+
+            }
+            jTable1.setModel(tableModel);
+            
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(ViewData.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jButtonSubjectsActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonInstructors;
     private javax.swing.JButton jButtonLectures;
     private javax.swing.JButton jButtonPostgradates;
+    private javax.swing.JButton jButtonSubjects;
     private javax.swing.JButton jButtonUndergraduates;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;

@@ -1,7 +1,6 @@
 
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import model.Stream;
 import model.Undergraduate;
 
@@ -10,6 +9,7 @@ public class ViewUndergraduate extends javax.swing.JPanel {
     AdminPanel adminPanel;
     /**
      * Creates new form ViewUndergraduate
+     * @param adminPanel
      */
     public ViewUndergraduate(AdminPanel adminPanel) {
         initComponents();
@@ -288,6 +288,9 @@ public class ViewUndergraduate extends javax.swing.JPanel {
         String id =jTextId.getText();
         try {
             Undergraduate underg=UndergraduateController.searchUndergraduate(id);
+            if(underg==null){
+                JOptionPane.showMessageDialog(adminPanel, "Not a Registered Lecturer");
+            }
             jTextName.setText(underg.getName());
             jTextDoB.setText(underg.getDoB());
             jTextAddress.setText(underg.getAddress());
@@ -315,18 +318,26 @@ public class ViewUndergraduate extends javax.swing.JPanel {
                 }
             }
             Stream str=StreamController.searchStream(id);
-            if(str.getName()=="Physical Stream"){
-                jLabelSubject1.setText("Mathematics");
-                jLabelSubject2.setText("Chemistry");
-                jLabelSubject3.setText("Physics");
-            }else if(str.getName()=="Biological Stream"){
-                jLabelSubject1.setText("Biology");
-                jLabelSubject2.setText("Chemistry");
-                jLabelSubject3.setText("Physics");
-            }else{
+            if(null==str.getName()){
                 jLabelSubject1.setText("Commerce");
                 jLabelSubject2.setText("Econ");
                 jLabelSubject3.setText("Accounting");
+            }else switch (str.getName()) {
+                case "Physical Stream":
+                    jLabelSubject1.setText("Mathematics");
+                    jLabelSubject2.setText("Chemistry");
+                    jLabelSubject3.setText("Physics");
+                    break;
+                case "Biological Stream":
+                    jLabelSubject1.setText("Biology");
+                    jLabelSubject2.setText("Chemistry");
+                    jLabelSubject3.setText("Physics");
+                    break;
+                default:
+                    jLabelSubject1.setText("Commerce");
+                    jLabelSubject2.setText("Econ");
+                    jLabelSubject3.setText("Accounting");
+                    break;
             }
             jTextStream.setText(str.getName());
             jTextSubject1.setText(str.getSubject1());
@@ -339,7 +350,7 @@ public class ViewUndergraduate extends javax.swing.JPanel {
             
             
         } catch (ClassNotFoundException | SQLException ex) {
-            Logger.getLogger(ViewPostgraduate.class.getName()).log(Level.SEVERE, null, ex);
+            ExceptionHandle.showError(ex);
         }
     }//GEN-LAST:event_jButtonSubmitActionPerformed
 

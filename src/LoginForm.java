@@ -10,6 +10,7 @@
  */
 
 import java.awt.event.WindowEvent;
+import javax.swing.JOptionPane;
        
 
 public class LoginForm extends javax.swing.JFrame {
@@ -158,7 +159,10 @@ public class LoginForm extends javax.swing.JFrame {
     }//GEN-LAST:event_ButtonInstructorActionPerformed
 
     private void ButtonExit1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonExit1ActionPerformed
-        System.exit(0);
+        int YesOrNo = JOptionPane.showConfirmDialog(null,"Do You Want to Exit","Exit",JOptionPane.YES_NO_OPTION);
+        if(YesOrNo == 0){
+            System.exit(0);
+        }
     }//GEN-LAST:event_ButtonExit1ActionPerformed
 
     /**

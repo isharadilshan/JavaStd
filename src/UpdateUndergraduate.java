@@ -3,8 +3,7 @@ import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import model.Stream;
 import model.Undergraduate;
 
@@ -14,6 +13,7 @@ public class UpdateUndergraduate extends javax.swing.JPanel {
     String DoB;
     /**
      * Creates new form UpdateUndergraduate
+     * @param adminPanel
      */
     public UpdateUndergraduate(AdminPanel adminPanel) {
         this.adminPanel=adminPanel;
@@ -64,7 +64,7 @@ public class UpdateUndergraduate extends javax.swing.JPanel {
         jTextFaculty = new javax.swing.JTextField();
         jLabelFaculty = new javax.swing.JLabel();
         jButtonUpdate1 = new javax.swing.JButton();
-        jButtonClear = new javax.swing.JButton();
+        jButtonDelete = new javax.swing.JButton();
         jPickerDoB = new org.jdesktop.swingx.JXDatePicker();
 
         setBackground(new java.awt.Color(153, 153, 255));
@@ -234,15 +234,15 @@ public class UpdateUndergraduate extends javax.swing.JPanel {
         });
         add(jButtonUpdate1, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 400, -1, -1));
 
-        jButtonClear.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jButtonClear.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Clear.png"))); // NOI18N
-        jButtonClear.setText("Delete");
-        jButtonClear.addActionListener(new java.awt.event.ActionListener() {
+        jButtonDelete.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jButtonDelete.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Clear.png"))); // NOI18N
+        jButtonDelete.setText("Delete");
+        jButtonDelete.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonClearActionPerformed(evt);
+                jButtonDeleteActionPerformed(evt);
             }
         });
-        add(jButtonClear, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 480, 149, -1));
+        add(jButtonDelete, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 480, 149, -1));
 
         jPickerDoB.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -251,7 +251,13 @@ public class UpdateUndergraduate extends javax.swing.JPanel {
         });
         add(jPickerDoB, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 240, -1, -1));
     }// </editor-fold>//GEN-END:initComponents
-
+    public boolean validateFields(){
+        if(jTextName.getText().isEmpty() | jTextAddress.getText().isEmpty() | jTextContact.getText().isEmpty() | jTextEmail.getText().isEmpty() | jTextSubject1.getText().isEmpty() | jTextSubject2.getText().isEmpty() |jTextSubject3.getText().isEmpty() | jTextEnglish.getText().isEmpty() | jTextRank.getText().isEmpty() | jTextZScore.getText().isEmpty()){
+            JOptionPane.showMessageDialog(adminPanel, "Please Fill all the Fields Before Submit", "Warning",JOptionPane.WARNING_MESSAGE);
+            return false;
+        }
+        return true;
+    }
     private void jButtonRegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRegisterActionPerformed
         RegUndergraduate regUnderg=new RegUndergraduate(adminPanel);
         adminPanel.masterPanel.removeAll();
@@ -282,6 +288,15 @@ public class UpdateUndergraduate extends javax.swing.JPanel {
         String id =jTextId.getText();
         try {
             underg=UndergraduateController.searchUndergraduate(id);
+            if(underg==null){
+                JOptionPane.showMessageDialog(adminPanel, "Not a Registered Student");
+                UpdateUndergraduate updateUnderg=new UpdateUndergraduate(adminPanel);
+                adminPanel.masterPanel.removeAll();
+                adminPanel.masterPanel.add(updateUnderg);
+                adminPanel.masterPanel.repaint();
+                adminPanel.masterPanel.revalidate();
+                updateUnderg.setVisible(true);
+            }
             jTextName.setText(underg.getName());
             DoB=underg.getDoB();
             String dateValue = underg.getDoB();
@@ -314,18 +329,26 @@ public class UpdateUndergraduate extends javax.swing.JPanel {
                 }
             }
             Stream str=StreamController.searchStream(id);
-            if(str.getName()=="Physical Stream"){
-                jLabelSubject1.setText("Mathematics");
-                jLabelSubject2.setText("Chemistry");
-                jLabelSubject3.setText("Physics");
-            }else if(str.getName()=="Biological Stream"){
-                jLabelSubject1.setText("Biology");
-                jLabelSubject2.setText("Chemistry");
-                jLabelSubject3.setText("Physics");
-            }else{
+            if(null==str.getName()){
                 jLabelSubject1.setText("Commerce");
                 jLabelSubject2.setText("Econ");
                 jLabelSubject3.setText("Accounting");
+            }else switch (str.getName()) {
+                case "Physical Stream":
+                    jLabelSubject1.setText("Mathematics");
+                    jLabelSubject2.setText("Chemistry");
+                    jLabelSubject3.setText("Physics");
+                    break;
+                case "Biological Stream":
+                    jLabelSubject1.setText("Biology");
+                    jLabelSubject2.setText("Chemistry");
+                    jLabelSubject3.setText("Physics");
+                    break;
+                default:
+                    jLabelSubject1.setText("Commerce");
+                    jLabelSubject2.setText("Econ");
+                    jLabelSubject3.setText("Accounting");
+                    break;
             }
             jTextStream.setText(str.getName());
             jTextSubject1.setText(str.getSubject1());
@@ -335,10 +358,8 @@ public class UpdateUndergraduate extends javax.swing.JPanel {
             jTextRank.setText(str.getRank());
             jTextZScore.setText(str.getZScore());
 
-        } catch (ClassNotFoundException | SQLException ex) {
-            Logger.getLogger(ViewPostgraduate.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ParseException ex) {
-            Logger.getLogger(UpdateUndergraduate.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException | SQLException | ParseException ex) {
+            ExceptionHandle.showError(ex);
         }
     }//GEN-LAST:event_jButtonSubmitActionPerformed
 
@@ -393,35 +414,36 @@ public class UpdateUndergraduate extends javax.swing.JPanel {
         }
         Undergraduate underg1=new Undergraduate(id,jTextName.getText(),DoB,jTextAddress.getText(),jTextEmail.getText(),jTextContact.getText(),underg.getRegDate(),intake,jTextStream.getText(),fid);
         Stream stream=new Stream(strid,jTextStream.getText(),jTextSubject1.getText(),jTextSubject2.getText(),jTextSubject3.getText(),jTextEnglish.getText(),jTextRank.getText(),jTextZScore.getText(),id);
-        try {
-            UndergraduateController.updateUndergraduate(underg1);
-            StreamController.updateStream(stream);
-            UpdateUndergraduate updateUnderg=new UpdateUndergraduate(adminPanel);
-            adminPanel.masterPanel.removeAll();
-            adminPanel.masterPanel.add(updateUnderg);
-            adminPanel.masterPanel.repaint();
-            adminPanel.masterPanel.revalidate();
-            updateUnderg.setVisible(true);
-        } catch (ClassNotFoundException | SQLException ex) {
-            Logger.getLogger(UpdatePostgraduate.class.getName()).log(Level.SEVERE, null, ex);
+        if(validateFields()){
+            try {
+                UndergraduateController.updateUndergraduate(underg1);
+                StreamController.updateStream(stream);
+                JOptionPane.showMessageDialog(adminPanel, "Updated Data Sucessfully");
+                UpdateUndergraduate updateUnderg=new UpdateUndergraduate(adminPanel);
+                adminPanel.masterPanel.removeAll();
+                adminPanel.masterPanel.add(updateUnderg);
+                adminPanel.masterPanel.repaint();
+                adminPanel.masterPanel.revalidate();
+                updateUnderg.setVisible(true);
+            } catch (ClassNotFoundException | SQLException ex) {
+                System.out.println(ex);
+                //ExceptionHandle.showError(ex);
+            }
         }
-        
     }//GEN-LAST:event_jButtonUpdate1ActionPerformed
 
-    private void jButtonClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonClearActionPerformed
+    private void jButtonDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDeleteActionPerformed
         String id=jTextId.getText();
-        UpdatePostgraduate updatePostg=new UpdatePostgraduate(adminPanel);
-        adminPanel.masterPanel.removeAll();
-        adminPanel.masterPanel.add(updatePostg);
-        adminPanel.masterPanel.repaint();
-        adminPanel.masterPanel.revalidate();
-        updatePostg.setVisible(true);
-        try {
-            PostgraduateController.deletePostgraduate(id);
-        } catch (ClassNotFoundException | SQLException ex) {
-            Logger.getLogger(ViewLecturer.class.getName()).log(Level.SEVERE, null, ex);
-        }  // TODO add your ha
-    }//GEN-LAST:event_jButtonClearActionPerformed
+        int YesOrNo = JOptionPane.showConfirmDialog(null,"Do You Want to Delete","Exit",JOptionPane.YES_NO_OPTION);
+        if(YesOrNo == 0){
+            try {
+                UndergraduateController.deleteUndergraduate(id);
+                JOptionPane.showMessageDialog(adminPanel, "Data Removed Sucessfully");
+            } catch (ClassNotFoundException | SQLException ex) {
+                ExceptionHandle.showError(ex);
+            } 
+        }
+    }//GEN-LAST:event_jButtonDeleteActionPerformed
 
     private void jPickerDoBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jPickerDoBActionPerformed
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
@@ -432,7 +454,7 @@ public class UpdateUndergraduate extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel LabelDoB;
-    private javax.swing.JButton jButtonClear;
+    private javax.swing.JButton jButtonDelete;
     private javax.swing.JButton jButtonRegister;
     private javax.swing.JButton jButtonSubmit;
     private javax.swing.JButton jButtonUpdate;

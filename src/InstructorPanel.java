@@ -1,3 +1,8 @@
+
+import java.sql.SQLException;
+import java.util.ArrayList;
+import model.Subject;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -29,10 +34,11 @@ public class InstructorPanel extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         LectureCourseTable = new javax.swing.JTable();
-        ButtonExit = new javax.swing.JButton();
-        ButtonView = new javax.swing.JButton();
+        jButtonViewEvaluation = new javax.swing.JButton();
+        jButtonEvaluation = new javax.swing.JButton();
         ButtonBack = new javax.swing.JButton();
         LabelPhoto = new javax.swing.JLabel();
+        ButtonView = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -54,21 +60,21 @@ public class InstructorPanel extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(LectureCourseTable);
 
-        ButtonExit.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
-        ButtonExit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Exit.png"))); // NOI18N
-        ButtonExit.setText("Exit");
-        ButtonExit.addActionListener(new java.awt.event.ActionListener() {
+        jButtonViewEvaluation.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
+        jButtonViewEvaluation.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Exit.png"))); // NOI18N
+        jButtonViewEvaluation.setText("View Evaluation");
+        jButtonViewEvaluation.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ButtonExitActionPerformed(evt);
+                jButtonViewEvaluationActionPerformed(evt);
             }
         });
 
-        ButtonView.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        ButtonView.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/View.png"))); // NOI18N
-        ButtonView.setText("View Profile");
-        ButtonView.addActionListener(new java.awt.event.ActionListener() {
+        jButtonEvaluation.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jButtonEvaluation.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Evaluation_1.png"))); // NOI18N
+        jButtonEvaluation.setText("Evaluation");
+        jButtonEvaluation.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ButtonViewActionPerformed(evt);
+                jButtonEvaluationActionPerformed(evt);
             }
         });
 
@@ -83,16 +89,27 @@ public class InstructorPanel extends javax.swing.JFrame {
 
         LabelPhoto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/InstructorPro.png"))); // NOI18N
 
+        ButtonView.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        ButtonView.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/View.png"))); // NOI18N
+        ButtonView.setText("View Profile");
+        ButtonView.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ButtonViewActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(131, 131, 131)
-                .addComponent(ButtonExit, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(83, 83, 83)
+                .addGap(95, 95, 95)
                 .addComponent(ButtonBack, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(79, 79, 79)
+                .addGap(18, 18, 18)
+                .addComponent(jButtonViewEvaluation, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jButtonEvaluation, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(ButtonView, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
@@ -111,9 +128,10 @@ public class InstructorPanel extends javax.swing.JFrame {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(72, 72, 72)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(ButtonExit, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(ButtonBack)
-                    .addComponent(ButtonView))
+                    .addComponent(jButtonEvaluation)
+                    .addComponent(ButtonView)
+                    .addComponent(jButtonViewEvaluation, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(ButtonBack))
                 .addGap(143, 143, 143))
         );
 
@@ -131,16 +149,17 @@ public class InstructorPanel extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void ButtonExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonExitActionPerformed
-        System.exit(0);
-    }//GEN-LAST:event_ButtonExitActionPerformed
-
-    private void ButtonViewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonViewActionPerformed
-        LectureProfileView LecView;
-        LecView = new LectureProfileView();
-        LecView.setVisible(true);
+    private void jButtonViewEvaluationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonViewEvaluationActionPerformed
+        LectureEvaluation2 ins = new LectureEvaluation2();
+        ins.setVisible(true);
         this.dispose();
-    }//GEN-LAST:event_ButtonViewActionPerformed
+    }//GEN-LAST:event_jButtonViewEvaluationActionPerformed
+
+    private void jButtonEvaluationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEvaluationActionPerformed
+        LectureEvaluation inse = new LectureEvaluation();
+        inse.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jButtonEvaluationActionPerformed
 
     private void ButtonBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonBackActionPerformed
         InstructorLogin InsLog;
@@ -149,47 +168,24 @@ public class InstructorPanel extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_ButtonBackActionPerformed
 
+    private void ButtonViewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonViewActionPerformed
+        InstructorProfileView ins = new InstructorProfileView();
+        ins.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_ButtonViewActionPerformed
+
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(InstructorPanel.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(InstructorPanel.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(InstructorPanel.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(InstructorPanel.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new InstructorPanel().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton ButtonBack;
-    private javax.swing.JButton ButtonExit;
     private javax.swing.JButton ButtonView;
     private javax.swing.JLabel LabelPhoto;
     private javax.swing.JTable LectureCourseTable;
+    private javax.swing.JButton jButtonEvaluation;
+    private javax.swing.JButton jButtonViewEvaluation;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables

@@ -74,7 +74,7 @@ public class LectureEvaluation extends javax.swing.JFrame {
             }
         });
 
-        ResultsofCombo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Assignments", "Reports", "InClass Assignments", "Examinations", "Lab Assignments", "Practical Demonstrations", "Projects", " ", " " }));
+        ResultsofCombo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Assignment", "Report", "InClass Assignment", "Examination", "Lab Assignment", "Practical Demonstration", "Project", " ", " " }));
         ResultsofCombo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ResultsofComboActionPerformed(evt);

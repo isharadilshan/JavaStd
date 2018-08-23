@@ -3,8 +3,7 @@ import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import model.Instructor;
 
 /*
@@ -23,6 +22,7 @@ public class UpdateInstructor extends javax.swing.JPanel {
     String DoB;
     /**
      * Creates new form UpdateInstructor
+     * @param adminPanel
      */
     public UpdateInstructor(AdminPanel adminPanel) {
         this.adminPanel=adminPanel;
@@ -190,17 +190,21 @@ public class UpdateInstructor extends javax.swing.JPanel {
 
     private void jButtonDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDeleteActionPerformed
         String id=jTextId.getText();
-        UpdateInstructor updateIns=new UpdateInstructor(adminPanel);
-        adminPanel.masterPanel.removeAll();
-        adminPanel.masterPanel.add(updateIns);
-        adminPanel.masterPanel.repaint();
-        adminPanel.masterPanel.revalidate();
-        updateIns.setVisible(true);  
-        try {
-            InstructorController.deleteInstructor(id);
-        } catch (ClassNotFoundException | SQLException ex) {
-            Logger.getLogger(ViewLecturer.class.getName()).log(Level.SEVERE, null, ex);
-        }  // TODO add your h
+        int YesOrNo = JOptionPane.showConfirmDialog(null,"Do You Want to Delete","Exit",JOptionPane.YES_NO_OPTION);
+        if(YesOrNo == 0){
+            try {
+                InstructorController.deleteInstructor(id);
+                JOptionPane.showMessageDialog(adminPanel, "Data Removed Sucessfully");
+                UpdateInstructor updateIns=new UpdateInstructor(adminPanel);
+                adminPanel.masterPanel.removeAll();
+                adminPanel.masterPanel.add(updateIns);
+                adminPanel.masterPanel.repaint();
+                adminPanel.masterPanel.revalidate();
+            updateIns.setVisible(true);  
+            } catch (ClassNotFoundException | SQLException ex) {
+                ExceptionHandle.showError(ex);
+            }
+        }
     }//GEN-LAST:event_jButtonDeleteActionPerformed
 
     private void jButtonUpdate1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonUpdate1ActionPerformed
@@ -209,6 +213,7 @@ public class UpdateInstructor extends javax.swing.JPanel {
         Instructor ins = new Instructor(id,jTextName.getText(),DoB,jTextAddress.getText(),jTextEmail.getText(),jTextContact.getText());
         try {
             InstructorController.updateInstructor(ins);
+            JOptionPane.showMessageDialog(adminPanel, "Updated Data Sucessfully");
             UpdateInstructor updateIns=new UpdateInstructor(adminPanel);
             adminPanel.masterPanel.removeAll();
             adminPanel.masterPanel.add(updateIns);
@@ -216,7 +221,7 @@ public class UpdateInstructor extends javax.swing.JPanel {
             adminPanel.masterPanel.revalidate();
             updateIns.setVisible(true);  
         } catch (ClassNotFoundException | SQLException ex) {
-            Logger.getLogger(UpdateLecturer.class.getName()).log(Level.SEVERE, null, ex);
+            ExceptionHandle.showError(ex);
         }
     }//GEN-LAST:event_jButtonUpdate1ActionPerformed
 
@@ -228,6 +233,15 @@ public class UpdateInstructor extends javax.swing.JPanel {
         String id=jTextId.getText();
         try {
             Instructor ins = InstructorController.searchInstructor(id);
+            if(ins==null){
+                JOptionPane.showMessageDialog(adminPanel, "Not a Registered Instructor");
+                UpdateInstructor updateIns=new UpdateInstructor(adminPanel);
+                adminPanel.masterPanel.removeAll();
+                adminPanel.masterPanel.add(updateIns);
+                adminPanel.masterPanel.repaint();
+                adminPanel.masterPanel.revalidate();
+                updateIns.setVisible(true);  
+            }
             jTextName.setText(ins.getName());
             jTextAddress.setText(ins.getAddress());
             jTextContact.setText(ins.getContact());
@@ -238,10 +252,8 @@ public class UpdateInstructor extends javax.swing.JPanel {
             jPickerDoB.setFormats(fmt);
             jPickerDoB.setDate(date);
 
-        } catch (ClassNotFoundException | SQLException ex) {
-            Logger.getLogger(ViewLecturer.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ParseException ex) {
-            Logger.getLogger(UpdateInstructor.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException | SQLException | ParseException ex) {
+            ExceptionHandle.showError(ex);
         }
     }//GEN-LAST:event_jButtonSubmitActionPerformed
 

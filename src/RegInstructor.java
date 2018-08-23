@@ -1,8 +1,7 @@
 
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import model.Instructor;
 
 /*
@@ -16,11 +15,13 @@ import model.Instructor;
  * @author Bunty
  */
 public class RegInstructor extends javax.swing.JPanel {
-
+    
     AdminPanel adminPanel;
     String DoB;
+    String RegDate;
     /**
      * Creates new form RegInstructor
+     * @param adminPanel
      */
     public RegInstructor(AdminPanel adminPanel) {
         initComponents();
@@ -36,35 +37,28 @@ public class RegInstructor extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jButtonUpdate = new javax.swing.JButton();
+        jPanel1 = new javax.swing.JPanel();
+        jPanel2 = new javax.swing.JPanel();
         jButtonRegister = new javax.swing.JButton();
         jLabelName = new javax.swing.JLabel();
         jTextName = new javax.swing.JTextField();
         jLabelDoB = new javax.swing.JLabel();
         jLabelAddress = new javax.swing.JLabel();
+        jTextAddress = new javax.swing.JTextField();
         jLabelContact = new javax.swing.JLabel();
+        jTextContact = new javax.swing.JTextField();
         jLabelEmail = new javax.swing.JLabel();
         jTextEmail = new javax.swing.JTextField();
-        jTextContact = new javax.swing.JTextField();
-        jTextAddress = new javax.swing.JTextField();
-        jButtonClear = new javax.swing.JButton();
         jButtonSubmit = new javax.swing.JButton();
+        jButtonClear = new javax.swing.JButton();
         jButtonView = new javax.swing.JButton();
+        jButtonUpdate = new javax.swing.JButton();
         jPickerDoB = new org.jdesktop.swingx.JXDatePicker();
 
-        setBackground(new java.awt.Color(153, 153, 255));
-        setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        jPanel1.setBackground(new java.awt.Color(153, 153, 255));
 
-        jButtonUpdate.setBackground(new java.awt.Color(0, 153, 204));
-        jButtonUpdate.setFont(new java.awt.Font("Tahoma", 3, 24)); // NOI18N
-        jButtonUpdate.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/ViewPro.png"))); // NOI18N
-        jButtonUpdate.setText("Update");
-        jButtonUpdate.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonUpdateActionPerformed(evt);
-            }
-        });
-        add(jButtonUpdate, new org.netbeans.lib.awtextra.AbsoluteConstraints(718, 112, 244, 96));
+        jPanel2.setBackground(new java.awt.Color(153, 153, 255));
+        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jButtonRegister.setBackground(new java.awt.Color(153, 153, 255));
         jButtonRegister.setFont(new java.awt.Font("Tahoma", 3, 24)); // NOI18N
@@ -75,41 +69,31 @@ public class RegInstructor extends javax.swing.JPanel {
                 jButtonRegisterActionPerformed(evt);
             }
         });
-        add(jButtonRegister, new org.netbeans.lib.awtextra.AbsoluteConstraints(61, 112, 243, 96));
+        jPanel2.add(jButtonRegister, new org.netbeans.lib.awtextra.AbsoluteConstraints(67, 0, 243, 96));
 
         jLabelName.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabelName.setText("Name :-");
-        add(jLabelName, new org.netbeans.lib.awtextra.AbsoluteConstraints(143, 299, 178, 38));
-        add(jTextName, new org.netbeans.lib.awtextra.AbsoluteConstraints(481, 299, 350, 38));
+        jPanel2.add(jLabelName, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 187, 178, 38));
+        jPanel2.add(jTextName, new org.netbeans.lib.awtextra.AbsoluteConstraints(444, 187, 350, 38));
 
         jLabelDoB.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabelDoB.setText("Date of Birth :-");
-        add(jLabelDoB, new org.netbeans.lib.awtextra.AbsoluteConstraints(143, 364, 178, 42));
+        jPanel2.add(jLabelDoB, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 252, 178, 42));
 
         jLabelAddress.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabelAddress.setText("Address :-");
-        add(jLabelAddress, new org.netbeans.lib.awtextra.AbsoluteConstraints(143, 434, 178, 39));
+        jPanel2.add(jLabelAddress, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 322, 178, 39));
+        jPanel2.add(jTextAddress, new org.netbeans.lib.awtextra.AbsoluteConstraints(444, 323, 350, 40));
 
         jLabelContact.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabelContact.setText("Contact Number :-");
-        add(jLabelContact, new org.netbeans.lib.awtextra.AbsoluteConstraints(143, 500, 178, 43));
+        jPanel2.add(jLabelContact, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 388, 178, 43));
+        jPanel2.add(jTextContact, new org.netbeans.lib.awtextra.AbsoluteConstraints(444, 390, 350, 43));
 
         jLabelEmail.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabelEmail.setText("Email :-");
-        add(jLabelEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(143, 568, 178, 40));
-        add(jTextEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(481, 570, 350, 40));
-        add(jTextContact, new org.netbeans.lib.awtextra.AbsoluteConstraints(481, 502, 350, 43));
-        add(jTextAddress, new org.netbeans.lib.awtextra.AbsoluteConstraints(481, 435, 350, 40));
-
-        jButtonClear.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jButtonClear.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Clear.png"))); // NOI18N
-        jButtonClear.setText("Clear");
-        jButtonClear.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonClearActionPerformed(evt);
-            }
-        });
-        add(jButtonClear, new org.netbeans.lib.awtextra.AbsoluteConstraints(334, 694, 163, 70));
+        jPanel2.add(jLabelEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 456, 178, 40));
+        jPanel2.add(jTextEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(444, 458, 350, 40));
 
         jButtonSubmit.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jButtonSubmit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Submit.png"))); // NOI18N
@@ -119,7 +103,17 @@ public class RegInstructor extends javax.swing.JPanel {
                 jButtonSubmitActionPerformed(evt);
             }
         });
-        add(jButtonSubmit, new org.netbeans.lib.awtextra.AbsoluteConstraints(646, 694, 171, 70));
+        jPanel2.add(jButtonSubmit, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 582, 171, 70));
+
+        jButtonClear.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jButtonClear.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Clear.png"))); // NOI18N
+        jButtonClear.setText("Clear");
+        jButtonClear.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonClearActionPerformed(evt);
+            }
+        });
+        jPanel2.add(jButtonClear, new org.netbeans.lib.awtextra.AbsoluteConstraints(258, 582, 163, 70));
 
         jButtonView.setBackground(new java.awt.Color(0, 153, 204));
         jButtonView.setFont(new java.awt.Font("Tahoma", 3, 24)); // NOI18N
@@ -130,29 +124,73 @@ public class RegInstructor extends javax.swing.JPanel {
                 jButtonViewActionPerformed(evt);
             }
         });
-        add(jButtonView, new org.netbeans.lib.awtextra.AbsoluteConstraints(391, 112, 244, 96));
+        jPanel2.add(jButtonView, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 0, 244, 96));
+
+        jButtonUpdate.setBackground(new java.awt.Color(0, 153, 204));
+        jButtonUpdate.setFont(new java.awt.Font("Tahoma", 3, 24)); // NOI18N
+        jButtonUpdate.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/UpdatePro.png"))); // NOI18N
+        jButtonUpdate.setText("Update");
+        jButtonUpdate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonUpdateActionPerformed(evt);
+            }
+        });
+        jPanel2.add(jButtonUpdate, new org.netbeans.lib.awtextra.AbsoluteConstraints(714, 0, 244, 96));
 
         jPickerDoB.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jPickerDoBActionPerformed(evt);
             }
         });
-        add(jPickerDoB, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 370, 140, 40));
-    }// </editor-fold>//GEN-END:initComponents
+        jPanel2.add(jPickerDoB, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 260, -1, 30));
 
-    private void jButtonClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonClearActionPerformed
-        RegInstructor regIns=new RegInstructor(adminPanel);
-        adminPanel.masterPanel.removeAll();
-        adminPanel.masterPanel.add(regIns);
-        adminPanel.masterPanel.repaint();
-        adminPanel.masterPanel.revalidate();
-    }//GEN-LAST:event_jButtonClearActionPerformed
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 1095, Short.MAX_VALUE)
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(87, 87, 87)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 733, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(69, Short.MAX_VALUE))
+        );
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+        this.setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 1095, Short.MAX_VALUE)
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 889, Short.MAX_VALUE)
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+    }// </editor-fold>//GEN-END:initComponents
+    public boolean validateFields(){
+        if(jTextName.getText().isEmpty() | jTextAddress.getText().isEmpty() | jTextContact.getText().isEmpty() | jTextEmail.getText().isEmpty()){
+            JOptionPane.showMessageDialog(adminPanel, "Please Fill all the Fields Before Submit", "Warning",JOptionPane.WARNING_MESSAGE);
+            return false;
+        }
+        return true;
+    }
+    private void jButtonRegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRegisterActionPerformed
+
+    }//GEN-LAST:event_jButtonRegisterActionPerformed
 
     private void jButtonSubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSubmitActionPerformed
-        try {
+        if(validateFields()){
+            try {
                 String id=IdGenerator.getNewId("Instructor", "Instructor_Id", "IN");
                 Instructor ins = new Instructor(id,jTextName.getText(),DoB,jTextAddress.getText(),jTextEmail.getText(),jTextContact.getText());
                 InstructorController.addInstructor(ins);
+                JOptionPane.showMessageDialog(adminPanel, "Submitted Data Sucessfully");
                 RegInstructor regIns=new RegInstructor(adminPanel);
                 adminPanel.masterPanel.removeAll();
                 adminPanel.masterPanel.add(regIns);
@@ -160,10 +198,30 @@ public class RegInstructor extends javax.swing.JPanel {
                 adminPanel.masterPanel.revalidate();
                 regIns.setVisible(true);
             } catch (ClassNotFoundException | SQLException ex) {
-                System.out.println("Please Input a message box here");
-                Logger.getLogger(RegLecturer.class.getName()).log(Level.SEVERE, null, ex);//how to set up jOptionPane in java
+                ExceptionHandle.showError(ex);
             }
+        }
     }//GEN-LAST:event_jButtonSubmitActionPerformed
+
+    private void jButtonClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonClearActionPerformed
+        int YesOrNo = JOptionPane.showConfirmDialog(null,"Do You Want to Clear","Exit",JOptionPane.YES_NO_OPTION);
+        if(YesOrNo == 0){
+            jTextName.setText("");
+            jTextAddress.setText("");
+            jTextContact.setText("");
+            jTextEmail.setText("");
+        }
+    }//GEN-LAST:event_jButtonClearActionPerformed
+
+    private void jButtonViewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonViewActionPerformed
+        ViewInstructor viewIns=new ViewInstructor(adminPanel);
+        adminPanel.masterPanel.removeAll();
+        adminPanel.masterPanel.add(viewIns);
+        adminPanel.masterPanel.repaint();
+        adminPanel.masterPanel.revalidate();
+        viewIns.setVisible(true);
+
+    }//GEN-LAST:event_jButtonViewActionPerformed
 
     private void jButtonUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonUpdateActionPerformed
         UpdateInstructor updateIns=new UpdateInstructor(adminPanel);
@@ -173,19 +231,6 @@ public class RegInstructor extends javax.swing.JPanel {
         adminPanel.masterPanel.revalidate();
         updateIns.setVisible(true);
     }//GEN-LAST:event_jButtonUpdateActionPerformed
-
-    private void jButtonViewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonViewActionPerformed
-        ViewInstructor viewIns=new ViewInstructor(adminPanel);
-        adminPanel.masterPanel.removeAll();
-        adminPanel.masterPanel.add(viewIns);
-        adminPanel.masterPanel.repaint();
-        adminPanel.masterPanel.revalidate();
-        viewIns.setVisible(true);
-    }//GEN-LAST:event_jButtonViewActionPerformed
-
-    private void jButtonRegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRegisterActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButtonRegisterActionPerformed
 
     private void jPickerDoBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jPickerDoBActionPerformed
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
@@ -205,6 +250,8 @@ public class RegInstructor extends javax.swing.JPanel {
     private javax.swing.JLabel jLabelDoB;
     private javax.swing.JLabel jLabelEmail;
     private javax.swing.JLabel jLabelName;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private org.jdesktop.swingx.JXDatePicker jPickerDoB;
     private javax.swing.JTextField jTextAddress;
     private javax.swing.JTextField jTextContact;

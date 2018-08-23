@@ -5,6 +5,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JCheckBox;
+import javax.swing.JOptionPane;
 import model.Enroll;
 import model.Postgraduate;
 
@@ -18,12 +20,25 @@ public class PostgraduateEvaluation extends javax.swing.JPanel {
     Enroll[] subjectsSem2 = new Enroll[8];
     Enroll[] selectedSubjectsSem2 = new Enroll[8];
     int countSem1=0,countSem2=0;
+    public JCheckBox[] checkList1;
+     public JCheckBox[] checkList2;
     /**
      * Creates new form PostgraduateEvaluation
      */
     public PostgraduateEvaluation(AdminPanel adminPanel) {
         this.adminPanel=adminPanel;
         initComponents();
+        checkList1 = new JCheckBox[] { jCheckBoxS13,jCheckBoxS14,jCheckBoxS15,jCheckBoxS16,jCheckBoxS17,jCheckBoxS18};
+        Listener listener1 = new Listener(checkList1,4);
+        for (int i = 0; i < checkList1.length; ++i) {
+            checkList1[i].addItemListener(listener1);
+        }
+        checkList2 = new JCheckBox[] { jCheckBoxS23,jCheckBoxS24,jCheckBoxS25,jCheckBoxS26,jCheckBoxS27,jCheckBoxS28};
+        Listener listener2 = new Listener(checkList2,4);
+        for (int i = 0; i < checkList2.length; ++i) {
+            checkList2[i].addItemListener(listener2);
+        }
+
     }
 
     /**
@@ -56,7 +71,7 @@ public class PostgraduateEvaluation extends javax.swing.JPanel {
         jButtonSubS11 = new javax.swing.JButton();
         jButtonSubS12 = new javax.swing.JButton();
         jLabelCashS11 = new javax.swing.JLabel();
-        jButtonEditS1 = new javax.swing.JButton();
+        jButtonUpdateS1 = new javax.swing.JButton();
         jButtonProceedS1 = new javax.swing.JButton();
         jLabelCashS13 = new javax.swing.JLabel();
         jLabelCashS12 = new javax.swing.JLabel();
@@ -107,6 +122,12 @@ public class PostgraduateEvaluation extends javax.swing.JPanel {
             }
         });
         add(jButtonStuId, new org.netbeans.lib.awtextra.AbsoluteConstraints(890, 70, 96, 42));
+
+        jTextStuId.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextStuIdActionPerformed(evt);
+            }
+        });
         add(jTextStuId, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 70, 110, 42));
 
         jLabelCreditS13.setText("3 Credits");
@@ -202,10 +223,15 @@ public class PostgraduateEvaluation extends javax.swing.JPanel {
         jLabelCashS11.setText("Rs 4500");
         add(jLabelCashS11, new org.netbeans.lib.awtextra.AbsoluteConstraints(385, 259, 59, 30));
 
-        jButtonEditS1.setFont(new java.awt.Font("Tahoma", 3, 14)); // NOI18N
-        jButtonEditS1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Edit.png"))); // NOI18N
-        jButtonEditS1.setText("Edit");
-        add(jButtonEditS1, new org.netbeans.lib.awtextra.AbsoluteConstraints(36, 755, 148, 49));
+        jButtonUpdateS1.setFont(new java.awt.Font("Tahoma", 3, 14)); // NOI18N
+        jButtonUpdateS1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Edit.png"))); // NOI18N
+        jButtonUpdateS1.setText("Update");
+        jButtonUpdateS1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonUpdateS1ActionPerformed(evt);
+            }
+        });
+        add(jButtonUpdateS1, new org.netbeans.lib.awtextra.AbsoluteConstraints(36, 755, 148, 49));
 
         jButtonProceedS1.setFont(new java.awt.Font("Tahoma", 3, 14)); // NOI18N
         jButtonProceedS1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Proceed.png"))); // NOI18N
@@ -360,42 +386,60 @@ public class PostgraduateEvaluation extends javax.swing.JPanel {
         jButtonProceedS2.setFont(new java.awt.Font("Tahoma", 3, 14)); // NOI18N
         jButtonProceedS2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Proceed.png"))); // NOI18N
         jButtonProceedS2.setText("Proceed");
+        jButtonProceedS2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonProceedS2ActionPerformed(evt);
+            }
+        });
         add(jButtonProceedS2, new org.netbeans.lib.awtextra.AbsoluteConstraints(822, 755, -1, 49));
     }// </editor-fold>//GEN-END:initComponents
 
     private void jCheckBoxS18ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBoxS18ActionPerformed
-        if(countSem1<=3){
-            if(jCheckBoxS18.isSelected()){
-                Enroll enr = new Enroll("CS1108",postg.getId(),postg.getRegDate());
-                subjectsSem1[7]=enr;
-            }
-            countSem1++;
-        }else{
-            jCheckBoxS18.setEnabled(false);
+        if(jCheckBoxS18.isSelected()){
+            Enroll enr = new Enroll("CS1108",postg.getId(),postg.getRegDate());
+            subjectsSem1[7]=enr;
         }
     }//GEN-LAST:event_jCheckBoxS18ActionPerformed
 
     private void jCheckBoxS28ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBoxS28ActionPerformed
-        if(countSem2<=3){
-            if(jCheckBoxS28.isSelected()){
-                Enroll enr = new Enroll("CS1208",postg.getId(),postg.getRegDate());
-                subjectsSem2[7]=enr;
-            }
-            countSem2++;
-        }else{
-            jCheckBoxS28.setEnabled(false);
+        if(jCheckBoxS28.isSelected()){
+            Enroll enr = new Enroll("CS1208",postg.getId(),postg.getRegDate());
+            subjectsSem2[7]=enr;
         }
     }//GEN-LAST:event_jCheckBoxS28ActionPerformed
 
     private void jButtonProceedS1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonProceedS1ActionPerformed
-        // TODO add your handling code here:
+        Enroll enr1 = new Enroll("CS1101",postg.getId(),postg.getRegDate());
+        subjectsSem1[0]=enr1;
+        Enroll enr2 = new Enroll("CS1102",postg.getId(),postg.getRegDate());
+        subjectsSem1[1]=enr2;
+        
+        for (Enroll subjectsSem11 : subjectsSem1) {
+            if (subjectsSem11 != null) {
+                try {
+                    EnrollController.enrollSubject(subjectsSem11);
+                }catch (ClassNotFoundException | SQLException ex) {
+                    ExceptionHandle.showError(ex);
+                }
+            }
+        }
+        JOptionPane.showMessageDialog(adminPanel, "Enroll Process Done Sucessfully");
     }//GEN-LAST:event_jButtonProceedS1ActionPerformed
 
     private void jButtonStuIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonStuIdActionPerformed
-        String Id=jTextStuId.getText();
+        String id=jTextStuId.getText();
         try {
-            postg = PostgraduateController.searchPostgraduate(Id);
-            // object eka one wenne reg date ekata methana hoyapan sem gana
+            postg = PostgraduateController.searchPostgraduate(id);
+            Postgraduate postg = PostgraduateController.searchPostgraduate(id);
+            if(postg==null){
+                JOptionPane.showMessageDialog(adminPanel, "Not a Registered Postgraduate");
+                PostgraduateEvaluation postgEv=new PostgraduateEvaluation(adminPanel);
+                adminPanel.masterPanel.removeAll();
+                adminPanel.masterPanel.add(postgEv);
+                adminPanel.masterPanel.repaint();
+                adminPanel.masterPanel.revalidate();
+                postgEv.setVisible(true);
+            }
             String reg = postg.getRegDate();
             Date date1=new SimpleDateFormat("yyyy-MM-dd").parse(reg);
             SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
@@ -412,129 +456,105 @@ public class PostgraduateEvaluation extends javax.swing.JPanel {
     }//GEN-LAST:event_jButtonStuIdActionPerformed
 
     private void jCheckBoxS13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBoxS13ActionPerformed
-        if(countSem1<=3){
-            if(jCheckBoxS13.isSelected()){
-                Enroll enr = new Enroll("CS1103",postg.getId(),postg.getRegDate());
-                subjectsSem2[2]=enr;
-            }
-            countSem1++;
-        }else{
-            jCheckBoxS13.setEnabled(false);
+        if(jCheckBoxS13.isSelected()){
+            Enroll enr = new Enroll("CS1103",postg.getId(),postg.getRegDate());
+            subjectsSem2[2]=enr;
         }
 
     }//GEN-LAST:event_jCheckBoxS13ActionPerformed
 
     private void jCheckBoxS14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBoxS14ActionPerformed
-        if(countSem1<=3){
-            if(jCheckBoxS14.isSelected()){
-                Enroll enr = new Enroll("CS1104",postg.getId(),postg.getRegDate());
-                subjectsSem1[3]=enr;
-            }
-            countSem1++;
-        }else{
-            jCheckBoxS14.setEnabled(false);
+        if(jCheckBoxS14.isSelected()){
+            Enroll enr = new Enroll("CS1104",postg.getId(),postg.getRegDate());
+            subjectsSem1[3]=enr;
         }
     }//GEN-LAST:event_jCheckBoxS14ActionPerformed
 
     private void jCheckBoxS15ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBoxS15ActionPerformed
-        if(countSem1<=3){
-            if(jCheckBoxS15.isSelected()){
-                Enroll enr = new Enroll("CS1105",postg.getId(),postg.getRegDate());
-                subjectsSem1[4]=enr;
-            }
-            countSem1++;
-        }else{
-            jCheckBoxS15.setEnabled(false);
+        if(jCheckBoxS15.isSelected()){
+            Enroll enr = new Enroll("CS1105",postg.getId(),postg.getRegDate());
+            subjectsSem1[4]=enr;
         }
     }//GEN-LAST:event_jCheckBoxS15ActionPerformed
 
     private void jCheckBoxS16ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBoxS16ActionPerformed
-        if(countSem1<=3){
-            if(jCheckBoxS16.isSelected()){
-                Enroll enr = new Enroll("CS1106",postg.getId(),postg.getRegDate());
-                subjectsSem1[5]=enr;
-            }
-            countSem1++;
-        }else{
-            jCheckBoxS16.setEnabled(false);
+        if(jCheckBoxS16.isSelected()){
+            Enroll enr = new Enroll("CS1106",postg.getId(),postg.getRegDate());
+            subjectsSem1[5]=enr;
         }
     }//GEN-LAST:event_jCheckBoxS16ActionPerformed
 
     private void jCheckBoxS17ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBoxS17ActionPerformed
-        if(countSem1<=3){
-            if(jCheckBoxS17.isSelected()){
-                Enroll enr = new Enroll("CS1107",postg.getId(),postg.getRegDate());
-                subjectsSem1[6]=enr;
-            }
-            countSem1++;
-        }else{
-            jCheckBoxS17.setEnabled(false);
+        if(jCheckBoxS17.isSelected()){
+            Enroll enr = new Enroll("CS1107",postg.getId(),postg.getRegDate());
+            subjectsSem1[6]=enr;
         }
     }//GEN-LAST:event_jCheckBoxS17ActionPerformed
 
     private void jCheckBoxS23ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBoxS23ActionPerformed
-        if(countSem2<=3){
-            if(jCheckBoxS23.isSelected()){
-                Enroll enr = new Enroll("CS1203",postg.getId(),postg.getRegDate());
-                subjectsSem2[2]=enr;
-            }
-            countSem2++;
-        }else{
-            jCheckBoxS23.setEnabled(false);
+        if(jCheckBoxS23.isSelected()){
+            Enroll enr = new Enroll("CS1203",postg.getId(),postg.getRegDate());
+            subjectsSem2[2]=enr;
         }
+
     }//GEN-LAST:event_jCheckBoxS23ActionPerformed
 
     private void jCheckBoxS24ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBoxS24ActionPerformed
-        if(countSem2<=3){
-            if(jCheckBoxS24.isSelected()){
-                Enroll enr = new Enroll("CS1204",postg.getId(),postg.getRegDate());
-                subjectsSem2[3]=enr;
-            }
-            countSem2++;
-        }else{
-            jCheckBoxS24.setEnabled(false);
+        if(jCheckBoxS24.isSelected()){
+            Enroll enr = new Enroll("CS1204",postg.getId(),postg.getRegDate());
+            subjectsSem2[3]=enr;
         }
     }//GEN-LAST:event_jCheckBoxS24ActionPerformed
 
     private void jCheckBoxS25ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBoxS25ActionPerformed
-        if(countSem2<=3){
-            if(jCheckBoxS25.isSelected()){
-                Enroll enr = new Enroll("CS1205",postg.getId(),postg.getRegDate());
-                subjectsSem2[4]=enr;
-            }
-            countSem2++;
-        }else{
-            jCheckBoxS25.setEnabled(false);
+        if(jCheckBoxS25.isSelected()){
+            Enroll enr = new Enroll("CS1205",postg.getId(),postg.getRegDate());
+            subjectsSem2[4]=enr;
         }
     }//GEN-LAST:event_jCheckBoxS25ActionPerformed
 
     private void jCheckBoxS26ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBoxS26ActionPerformed
-        if(countSem2<=3){
-            if(jCheckBoxS26.isSelected()){
-                Enroll enr = new Enroll("CS1206",postg.getId(),postg.getRegDate());
-                subjectsSem2[2]=enr;
-            }
-            countSem2++;
-        }else{
-            jCheckBoxS26.setEnabled(false);
+        if(jCheckBoxS26.isSelected()){
+            Enroll enr = new Enroll("CS1206",postg.getId(),postg.getRegDate());
+            subjectsSem2[5]=enr;
         }
     }//GEN-LAST:event_jCheckBoxS26ActionPerformed
 
     private void jCheckBoxS27ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBoxS27ActionPerformed
-        if(countSem2<=3){
-            if(jCheckBoxS27.isSelected()){
-                Enroll enr = new Enroll("CS1207",postg.getId(),postg.getRegDate());
-                subjectsSem2[2]=enr;
-            }
-            countSem2++;
-        }else{
-            jCheckBoxS27.setEnabled(false);
+        if(jCheckBoxS27.isSelected()){
+            Enroll enr = new Enroll("CS1207",postg.getId(),postg.getRegDate());
+            subjectsSem2[6]=enr;
         }
     }//GEN-LAST:event_jCheckBoxS27ActionPerformed
 
+    private void jButtonProceedS2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonProceedS2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonProceedS2ActionPerformed
+
+    private void jButtonUpdateS1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonUpdateS1ActionPerformed
+        Enroll enr1 = new Enroll("CS1101",postg.getId(),postg.getRegDate());
+        subjectsSem1[0]=enr1;
+        Enroll enr2 = new Enroll("CS1102",postg.getId(),postg.getRegDate());
+        subjectsSem1[1]=enr2;
+        
+        for (Enroll subjectsSem11 : subjectsSem1) {
+            if (subjectsSem11 != null) {
+                try {
+                    EnrollController.enrollSubject(subjectsSem11);
+                }catch (ClassNotFoundException | SQLException ex) {
+                    ExceptionHandle.showError(ex);
+                }
+            }
+        }
+        JOptionPane.showMessageDialog(adminPanel, "Enrolment Updated  Sucessfully");
+    }//GEN-LAST:event_jButtonUpdateS1ActionPerformed
+
+    private void jTextStuIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextStuIdActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextStuIdActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButtonEditS1;
     private javax.swing.JButton jButtonEditS2;
     private javax.swing.JButton jButtonProceedS1;
     private javax.swing.JButton jButtonProceedS2;
@@ -543,6 +563,7 @@ public class PostgraduateEvaluation extends javax.swing.JPanel {
     private javax.swing.JButton jButtonSubS12;
     private javax.swing.JButton jButtonSubS21;
     private javax.swing.JButton jButtonSubS22;
+    private javax.swing.JButton jButtonUpdateS1;
     private javax.swing.JCheckBox jCheckBoxS13;
     private javax.swing.JCheckBox jCheckBoxS14;
     private javax.swing.JCheckBox jCheckBoxS15;
@@ -592,4 +613,5 @@ public class PostgraduateEvaluation extends javax.swing.JPanel {
     private javax.swing.JLabel jLabelStuId;
     private javax.swing.JTextField jTextStuId;
     // End of variables declaration//GEN-END:variables
+
 }

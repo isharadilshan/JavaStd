@@ -20,7 +20,7 @@ import model.Postgraduate;
 
 public class EmailPostgraduate {
     
-    public static void main(String args[]) throws ClassNotFoundException, SQLException{
+    public static void send() throws ClassNotFoundException, SQLException{
         
         ArrayList<Postgraduate>postglist = PostgraduateController.getAllPostgraduates();
         for(int i=0;i<postglist.size();i++){ 
@@ -46,7 +46,7 @@ public class EmailPostgraduate {
                 java.security.Security.addProvider(new com.sun.net.ssl.internal.ssl.Provider());
                 Session mailSession = Session.getDefaultInstance(props,null);
                 mailSession.setDebug(sessionDebug);
-                Message msg = new MimeMessage(mailSession);
+                MimeMessage msg = new MimeMessage(mailSession);
                 msg.setFrom(new InternetAddress(from));
                 InternetAddress[] address = {new InternetAddress(to)};
                 msg.setRecipients(Message.RecipientType.TO, address);
@@ -67,6 +67,7 @@ public class EmailPostgraduate {
                 Logger.getLogger(EmailUndergraduate.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+        System.out.println("Message Sent Succesfully");//message box
     }
     
 }

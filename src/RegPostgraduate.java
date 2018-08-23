@@ -1,8 +1,7 @@
 
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import model.Postgraduate;
 
 /*
@@ -26,6 +25,7 @@ public class RegPostgraduate extends javax.swing.JPanel {
     String RegDate;
     /**
      * Creates new form Postgraduate
+     * @param adminPanel
      */
     public RegPostgraduate(AdminPanel adminPanel) {
         initComponents();
@@ -161,11 +161,21 @@ public class RegPostgraduate extends javax.swing.JPanel {
         jButtonUpdate.setFont(new java.awt.Font("Tahoma", 3, 24)); // NOI18N
         jButtonUpdate.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/UpdatePro.png"))); // NOI18N
         jButtonUpdate.setText("Update");
+        jButtonUpdate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonUpdateActionPerformed(evt);
+            }
+        });
 
         jButtonRegister.setBackground(new java.awt.Color(153, 153, 255));
         jButtonRegister.setFont(new java.awt.Font("Tahoma", 3, 24)); // NOI18N
         jButtonRegister.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/RegisterPro.png"))); // NOI18N
         jButtonRegister.setText("Register");
+        jButtonRegister.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonRegisterActionPerformed(evt);
+            }
+        });
 
         jPickerDoB.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -190,47 +200,44 @@ public class RegPostgraduate extends javax.swing.JPanel {
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabelName, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jTextName, javax.swing.GroupLayout.PREFERRED_SIZE, 338, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabelAddress, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jTextAddress, javax.swing.GroupLayout.PREFERRED_SIZE, 338, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabelContact, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jTextContact, javax.swing.GroupLayout.PREFERRED_SIZE, 338, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabelEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jTextEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 338, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabelIntake, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(34, 34, 34)
-                                .addComponent(jComboYear, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(12, 12, 12)
-                                .addComponent(jComboSemester, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabelCompletion)
-                                .addGap(34, 34, 34)
-                                .addComponent(jComboCompletion, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabelQualification, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(34, 34, 34)
-                                .addComponent(jTextQualification, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabelFaculty, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(12, 12, 12)
-                                .addComponent(jComboFaculty, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(325, 325, 325))
+                        .addComponent(jLabelName, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jTextName, javax.swing.GroupLayout.PREFERRED_SIZE, 338, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabelAddress, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jTextAddress, javax.swing.GroupLayout.PREFERRED_SIZE, 338, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabelContact, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jTextContact, javax.swing.GroupLayout.PREFERRED_SIZE, 338, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabelEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jTextEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 338, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabelIntake, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(34, 34, 34)
+                        .addComponent(jComboYear, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(12, 12, 12)
+                        .addComponent(jComboSemester, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabelCompletion)
+                        .addGap(34, 34, 34)
+                        .addComponent(jComboCompletion, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabelQualification, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(34, 34, 34)
+                        .addComponent(jTextQualification, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabelFaculty, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(12, 12, 12)
+                        .addComponent(jComboFaculty, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabelDoB, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(16, 16, 16)
-                        .addComponent(jPickerDoB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(78, 78, 78))))
+                        .addComponent(jPickerDoB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(325, 325, 325))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -344,52 +351,70 @@ public class RegPostgraduate extends javax.swing.JPanel {
                 .addGap(0, 0, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
-
+    public boolean validateFields(){
+        if(jTextName.getText().isEmpty() | jTextAddress.getText().isEmpty() | jTextContact.getText().isEmpty() | jTextEmail.getText().isEmpty() | jTextQualification.getText().isEmpty()){
+            JOptionPane.showMessageDialog(adminPanel, "Please Fill all the Fields Before Submit", "Warning",JOptionPane.WARNING_MESSAGE);
+            return false;
+        }
+        return true;
+    }
     private void jComboCompletionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboCompletionActionPerformed
         Object selectedItem = jComboCompletion.getSelectedItem();
         if (selectedItem != null)
         {
             CompletionYear = selectedItem.toString();
+        }else{
+            CompletionYear = "2005";
         }
     }//GEN-LAST:event_jComboCompletionActionPerformed
 
     private void jButtonClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonClearActionPerformed
-        RegPostgraduate regPostg=new RegPostgraduate(adminPanel);
-        adminPanel.masterPanel.removeAll();
-        adminPanel.masterPanel.add(regPostg);
-        adminPanel.masterPanel.repaint();
-        adminPanel.masterPanel.revalidate();
-        regPostg.setVisible(true);
-    }//GEN-LAST:event_jButtonClearActionPerformed
-
-    private void jButtonSubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSubmitActionPerformed
-        try {
-            String id=IdGenerator.getNewId("Postgraduate","Student_Id","PS");
-            if(Faculty.equals("Computer Science")){
-                faculty="FCS01";
-            }else if(Faculty.equals("Bussiness")){
-                faculty="FBS02";
-            }else{
-                faculty="FES03";
-            }
-            String s;
-            if(Sem.equals("Semester 1")){
-                s="S1";
-            }else{
-                s="S2";
-            }
-            String intake=Year+s;
-            Postgraduate postg=new Postgraduate(id,jTextName.getText(),DoB,jTextAddress.getText(),jTextEmail.getText(),jTextContact.getText(),RegDate,intake,CompletionYear,jTextQualification.getText(),faculty);
-            PostgraduateController.addPostgraduate(postg);
+        int YesOrNo = JOptionPane.showConfirmDialog(null,"Do You Want to Clear","Exit",JOptionPane.YES_NO_OPTION);
+        if(YesOrNo==0){
             RegPostgraduate regPostg=new RegPostgraduate(adminPanel);
             adminPanel.masterPanel.removeAll();
             adminPanel.masterPanel.add(regPostg);
             adminPanel.masterPanel.repaint();
             adminPanel.masterPanel.revalidate();
             regPostg.setVisible(true);
-            
-        } catch (ClassNotFoundException | SQLException ex) {
-            Logger.getLogger(RegPostgraduate.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jButtonClearActionPerformed
+
+    private void jButtonSubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSubmitActionPerformed
+        if(validateFields()){
+            try {
+                String id=IdGenerator.getNewId("Postgraduate","Student_Id","PS");
+                switch (Faculty) {
+                    case "Computer Science":
+                        faculty="FCS01";
+                        break;
+                    case "Bussiness":
+                        faculty="FBS02";
+                        break;
+                    default:
+                        faculty="FES03";
+                        break;
+                }
+                String s;
+                if(Sem.equals("Semester 1")){
+                    s="S1";
+                }else{
+                    s="S2";
+                }
+                String intake=Year+s;
+                Postgraduate postg=new Postgraduate(id,jTextName.getText(),DoB,jTextAddress.getText(),jTextEmail.getText(),jTextContact.getText(),RegDate,intake,CompletionYear,jTextQualification.getText(),faculty);
+                PostgraduateController.addPostgraduate(postg);
+                JOptionPane.showMessageDialog(adminPanel, "Submitted Data Sucessfully");
+                RegPostgraduate regPostg=new RegPostgraduate(adminPanel);
+                adminPanel.masterPanel.removeAll();
+                adminPanel.masterPanel.add(regPostg);
+                adminPanel.masterPanel.repaint();
+                adminPanel.masterPanel.revalidate();
+                regPostg.setVisible(true);
+
+            } catch (ClassNotFoundException | SQLException ex) {
+                ExceptionHandle.showError(ex);
+            }
         }
     }//GEN-LAST:event_jButtonSubmitActionPerformed
 
@@ -398,6 +423,8 @@ public class RegPostgraduate extends javax.swing.JPanel {
         if (selectedItem != null)
         {
             Faculty = selectedItem.toString();
+        }else{
+            Faculty = "Computer Sceince";
         }
     }//GEN-LAST:event_jComboFacultyActionPerformed
 
@@ -406,6 +433,8 @@ public class RegPostgraduate extends javax.swing.JPanel {
         if (selectedItem != null)
         {
             Year = selectedItem.toString();
+        }else{
+            Year = "2017";
         }
     }//GEN-LAST:event_jComboYearActionPerformed
 
@@ -414,6 +443,8 @@ public class RegPostgraduate extends javax.swing.JPanel {
         if (selectedItem != null)
         {
             Sem = selectedItem.toString();
+        }else{
+            Sem = "Semester 1";
         }
     }//GEN-LAST:event_jComboSemesterActionPerformed
 
@@ -437,6 +468,19 @@ public class RegPostgraduate extends javax.swing.JPanel {
         jPickerRegDate.setFormats(formatter);
         RegDate = formatter.format(jPickerRegDate.getDate());
     }//GEN-LAST:event_jPickerRegDateActionPerformed
+
+    private void jButtonRegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRegisterActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonRegisterActionPerformed
+
+    private void jButtonUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonUpdateActionPerformed
+        UpdatePostgraduate updatePostg=new UpdatePostgraduate(adminPanel);
+        adminPanel.masterPanel.removeAll();
+        adminPanel.masterPanel.add(updatePostg);
+        adminPanel.masterPanel.repaint();
+        adminPanel.masterPanel.revalidate();
+        updatePostg.setVisible(true);
+    }//GEN-LAST:event_jButtonUpdateActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

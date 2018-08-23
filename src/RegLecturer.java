@@ -1,8 +1,7 @@
 
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import model.Lecturer;
 
 
@@ -13,23 +12,12 @@ public class RegLecturer extends javax.swing.JPanel {
     String RegDate;
     /**
      * Creates new form RegLecturer
+     * @param adminPanel
      */
     public RegLecturer(AdminPanel adminPanel) {
         initComponents();
         this.adminPanel=adminPanel;
-        StarName.setVisible(false);
-        StarAddress.setVisible(false);
-        StarContact.setVisible(false);
-        StarEmail.setVisible(false);
     }
-
-//    RegLecturer() {
-//        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-//    }
-
-//    RegLecturer() {
-//        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-//    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -54,10 +42,6 @@ public class RegLecturer extends javax.swing.JPanel {
         jButtonSubmit = new javax.swing.JButton();
         jButtonClear = new javax.swing.JButton();
         jButtonView = new javax.swing.JButton();
-        StarName = new javax.swing.JLabel();
-        StarAddress = new javax.swing.JLabel();
-        StarContact = new javax.swing.JLabel();
-        StarEmail = new javax.swing.JLabel();
         jButtonUpdate = new javax.swing.JButton();
         jPickerDoB = new org.jdesktop.swingx.JXDatePicker();
 
@@ -132,26 +116,6 @@ public class RegLecturer extends javax.swing.JPanel {
         });
         jPanel1.add(jButtonView, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 0, 244, 96));
 
-        StarName.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        StarName.setForeground(new java.awt.Color(204, 0, 0));
-        StarName.setText("*");
-        jPanel1.add(StarName, new org.netbeans.lib.awtextra.AbsoluteConstraints(812, 193, -1, -1));
-
-        StarAddress.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        StarAddress.setForeground(new java.awt.Color(204, 0, 0));
-        StarAddress.setText("*");
-        jPanel1.add(StarAddress, new org.netbeans.lib.awtextra.AbsoluteConstraints(812, 330, -1, -1));
-
-        StarContact.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        StarContact.setForeground(new java.awt.Color(204, 0, 0));
-        StarContact.setText("*");
-        jPanel1.add(StarContact, new org.netbeans.lib.awtextra.AbsoluteConstraints(812, 398, -1, -1));
-
-        StarEmail.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        StarEmail.setForeground(new java.awt.Color(204, 0, 0));
-        StarEmail.setText("*");
-        jPanel1.add(StarEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(812, 465, -1, -1));
-
         jButtonUpdate.setBackground(new java.awt.Color(0, 153, 204));
         jButtonUpdate.setFont(new java.awt.Font("Tahoma", 3, 24)); // NOI18N
         jButtonUpdate.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/UpdatePro.png"))); // NOI18N
@@ -185,31 +149,40 @@ public class RegLecturer extends javax.swing.JPanel {
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jButtonSubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSubmitActionPerformed
-
-        try {
-            String id=IdGenerator.getNewId("Lecturer", "Lecturer_Id", "LC");
-            Lecturer lec = new Lecturer(id,jTextName.getText(),DoB,jTextAddress.getText(),jTextEmail.getText(),jTextContact.getText());
-            LecturerController.addLecturer(lec);
-            RegLecturer regLec=new RegLecturer(adminPanel);
-            adminPanel.masterPanel.removeAll();
-            adminPanel.masterPanel.add(regLec);
-            adminPanel.masterPanel.repaint();
-            adminPanel.masterPanel.revalidate();
-            regLec.setVisible(true);
-        } catch (ClassNotFoundException | SQLException ex) {
-            System.out.println("Please Input a message box here");
-            Logger.getLogger(RegLecturer.class.getName()).log(Level.SEVERE, null, ex);//how to set up jOptionPane in java
+    public boolean validateFields(){
+        if(jTextName.getText().isEmpty() | jTextAddress.getText().isEmpty() | jTextContact.getText().isEmpty() | jTextEmail.getText().isEmpty()){
+            JOptionPane.showMessageDialog(adminPanel, "Please Fill all the Fields Before Submit", "Warning",JOptionPane.WARNING_MESSAGE);
+            return false;
         }
-        
+        return true;
+    }
+    private void jButtonSubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSubmitActionPerformed
+        if(validateFields()){
+            try {
+                String id=IdGenerator.getNewId("Lecturer", "Lecturer_Id", "LC");
+                Lecturer lec = new Lecturer(id,jTextName.getText(),DoB,jTextAddress.getText(),jTextEmail.getText(),jTextContact.getText());
+                LecturerController.addLecturer(lec);
+                RegLecturer regLec=new RegLecturer(adminPanel);
+                adminPanel.masterPanel.removeAll();
+                adminPanel.masterPanel.add(regLec);
+                adminPanel.masterPanel.repaint();
+                adminPanel.masterPanel.revalidate();
+                regLec.setVisible(true);
+                JOptionPane.showMessageDialog(adminPanel, "Data Submitted Sucessfully");
+            } catch (ClassNotFoundException | SQLException ex) {
+                ExceptionHandle.showError(ex);
+            }
+        }  
     }//GEN-LAST:event_jButtonSubmitActionPerformed
 
     private void jButtonClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonClearActionPerformed
-        jTextName.setText("");
-        jTextAddress.setText("");
-        jTextContact.setText("");
-        jTextEmail.setText("");
+        int YesOrNo = JOptionPane.showConfirmDialog(null,"Do You Want to Clear","Exit",JOptionPane.YES_NO_OPTION);
+        if(YesOrNo == 0){
+            jTextName.setText("");
+            jTextAddress.setText("");
+            jTextContact.setText("");
+            jTextEmail.setText("");
+        }
     }//GEN-LAST:event_jButtonClearActionPerformed
 
     private void jButtonViewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonViewActionPerformed
@@ -246,10 +219,6 @@ public class RegLecturer extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel StarAddress;
-    private javax.swing.JLabel StarContact;
-    private javax.swing.JLabel StarEmail;
-    private javax.swing.JLabel StarName;
     private javax.swing.JButton jButtonClear;
     private javax.swing.JButton jButtonRegister;
     private javax.swing.JButton jButtonSubmit;

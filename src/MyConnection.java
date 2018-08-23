@@ -16,14 +16,7 @@ public class MyConnection {
         return con;
     }
     
-//    public static void main(String[] args){
-//        Connection connection=getConnection();
-//        if (connection!=null) {
-//            System.out.println("connected");
-//        }else{
-//            System.out.println("fail");
-//        }
-//    }
+
 }  
     
     

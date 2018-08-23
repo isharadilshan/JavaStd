@@ -1,7 +1,6 @@
 
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import model.Instructor;
 
 /*
@@ -175,13 +174,16 @@ public class ViewInstructor extends javax.swing.JPanel {
         String id=jTextId.getText();
         try {
             Instructor ins=InstructorController.searchInstructor(id);
+            if(ins==null){
+                JOptionPane.showMessageDialog(adminPanel, "Not a Registered Lecturer");
+            }
             jTextName.setText(ins.getName());
             jTextDoB.setText(ins.getDoB());
             jTextAddress.setText(ins.getAddress());
             jTextContact.setText(ins.getContact());
             jTextEmail.setText(ins.getEmail());
         } catch (ClassNotFoundException | SQLException ex) {
-            Logger.getLogger(ViewInstructor.class.getName()).log(Level.SEVERE, null, ex);
+            ExceptionHandle.showError(ex);
         }
                 
     }//GEN-LAST:event_jButtonSubmitActionPerformed

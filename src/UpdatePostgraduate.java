@@ -3,8 +3,7 @@ import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import model.Postgraduate;
 
 
@@ -14,6 +13,7 @@ public class UpdatePostgraduate extends javax.swing.JPanel {
     String DoB;
     /**
      * Creates new form UpdatePostgraduate
+     * @param adminPanel
      */
     public UpdatePostgraduate(AdminPanel adminPanel) {
         this.adminPanel=adminPanel;
@@ -55,7 +55,7 @@ public class UpdatePostgraduate extends javax.swing.JPanel {
         jLabelFaculty = new javax.swing.JLabel();
         jTextFaculty = new javax.swing.JTextField();
         jButtonUpdate1 = new javax.swing.JButton();
-        jButtonClear = new javax.swing.JButton();
+        jButtonDelete = new javax.swing.JButton();
         jPickerDoB = new org.jdesktop.swingx.JXDatePicker();
 
         setBackground(new java.awt.Color(153, 153, 255));
@@ -196,15 +196,15 @@ public class UpdatePostgraduate extends javax.swing.JPanel {
         });
         jPanel1.add(jButtonUpdate1, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 430, 150, -1));
 
-        jButtonClear.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jButtonClear.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Clear.png"))); // NOI18N
-        jButtonClear.setText("Delete");
-        jButtonClear.addActionListener(new java.awt.event.ActionListener() {
+        jButtonDelete.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jButtonDelete.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Clear.png"))); // NOI18N
+        jButtonDelete.setText("Delete");
+        jButtonDelete.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonClearActionPerformed(evt);
+                jButtonDeleteActionPerformed(evt);
             }
         });
-        jPanel1.add(jButtonClear, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 518, 150, -1));
+        jPanel1.add(jButtonDelete, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 518, 150, -1));
 
         jPickerDoB.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -223,13 +223,19 @@ public class UpdatePostgraduate extends javax.swing.JPanel {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(60, 60, 60)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(159, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(86, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 796, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
-
+    public boolean validateFields(){
+        if(jTextName.getText().isEmpty() | jTextAddress.getText().isEmpty() | jTextContact.getText().isEmpty() | jTextEmail.getText().isEmpty() | jTextQualification.getText().isEmpty()){
+            JOptionPane.showMessageDialog(adminPanel, "Please Fill all the Fields Before Submit", "Warning",JOptionPane.WARNING_MESSAGE);
+            return false;
+        }
+        return true;
+    }
     private void jTextIntakeYearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextIntakeYearActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextIntakeYearActionPerformed
@@ -246,6 +252,15 @@ public class UpdatePostgraduate extends javax.swing.JPanel {
         String id =jTextId.getText();
         try {
             postg=PostgraduateController.searchPostgraduate(id);
+            if(postg==null){
+                JOptionPane.showMessageDialog(adminPanel, "Not a Registered Student");
+                UpdatePostgraduate updatePostg=new UpdatePostgraduate(adminPanel);
+                adminPanel.masterPanel.removeAll();
+                adminPanel.masterPanel.add(updatePostg);
+                adminPanel.masterPanel.repaint();
+                adminPanel.masterPanel.revalidate();
+                updatePostg.setVisible(true);
+            }
             jTextName.setText(postg.getName());
             jTextAddress.setText(postg.getAddress());
             jTextContact.setText(postg.getContact());
@@ -278,12 +293,10 @@ public class UpdatePostgraduate extends javax.swing.JPanel {
                     break;
                 }
             }
-            
-            
-        } catch (ClassNotFoundException | SQLException ex) {
-            Logger.getLogger(ViewPostgraduate.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ParseException ex) {
-            Logger.getLogger(UpdatePostgraduate.class.getName()).log(Level.SEVERE, null, ex);
+
+
+        } catch (ClassNotFoundException | SQLException | ParseException ex) {
+            ExceptionHandle.showError(ex);
         }
     }//GEN-LAST:event_jButtonSubmitActionPerformed
 
@@ -336,34 +349,41 @@ public class UpdatePostgraduate extends javax.swing.JPanel {
                 }
             }
         Postgraduate postg1=new Postgraduate(id,jTextName.getText(),DoB,jTextAddress.getText(),jTextEmail.getText(),jTextContact.getText(),postg.getRegDate(),intake,jTextCompletion.getText(),jTextQualification.getText(),fid);
-        try {
-            PostgraduateController.updatePostgraduate(postg1);
-            UpdatePostgraduate updatePostg=new UpdatePostgraduate(adminPanel);
-            adminPanel.masterPanel.removeAll();
-            adminPanel.masterPanel.add(updatePostg);
-            adminPanel.masterPanel.repaint();
-            adminPanel.masterPanel.revalidate();
-            updatePostg.setVisible(true);
-        } catch (ClassNotFoundException | SQLException ex) {
-            Logger.getLogger(UpdatePostgraduate.class.getName()).log(Level.SEVERE, null, ex);
+        if(validateFields()){
+            try {
+                PostgraduateController.updatePostgraduate(postg1);
+                JOptionPane.showMessageDialog(adminPanel, "Updated Data Sucessfully");
+                UpdatePostgraduate updatePostg=new UpdatePostgraduate(adminPanel);
+                adminPanel.masterPanel.removeAll();
+                adminPanel.masterPanel.add(updatePostg);
+                adminPanel.masterPanel.repaint();
+                adminPanel.masterPanel.revalidate();
+                updatePostg.setVisible(true);
+            } catch (ClassNotFoundException | SQLException ex) {
+                ExceptionHandle.showError(ex);
+            }
         }
         
     }//GEN-LAST:event_jButtonUpdate1ActionPerformed
 
-    private void jButtonClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonClearActionPerformed
+    private void jButtonDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDeleteActionPerformed
         String id=jTextId.getText();
-        UpdatePostgraduate updatePostg=new UpdatePostgraduate(adminPanel);
-        adminPanel.masterPanel.removeAll();
-        adminPanel.masterPanel.add(updatePostg);
-        adminPanel.masterPanel.repaint();
-        adminPanel.masterPanel.revalidate();
-        updatePostg.setVisible(true);  
-        try {
-            PostgraduateController.deletePostgraduate(id);
-        } catch (ClassNotFoundException | SQLException ex) {
-            Logger.getLogger(ViewLecturer.class.getName()).log(Level.SEVERE, null, ex);
-        }  // TODO add your ha
-    }//GEN-LAST:event_jButtonClearActionPerformed
+        int YesOrNo = JOptionPane.showConfirmDialog(null,"Do You Want to Clear","Exit",JOptionPane.YES_NO_OPTION);
+        if(YesOrNo == 0){
+            try {
+                PostgraduateController.deletePostgraduate(id);
+                JOptionPane.showMessageDialog(adminPanel, "Data Removed Sucessfully");
+                UpdatePostgraduate updatePostg=new UpdatePostgraduate(adminPanel);
+                adminPanel.masterPanel.removeAll();
+                adminPanel.masterPanel.add(updatePostg);
+                adminPanel.masterPanel.repaint();
+                adminPanel.masterPanel.revalidate();
+                updatePostg.setVisible(true);
+            } catch (ClassNotFoundException | SQLException ex) {
+                ExceptionHandle.showError(ex);
+            }
+        }
+    }//GEN-LAST:event_jButtonDeleteActionPerformed
 
     private void jTextNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextNameActionPerformed
         // TODO add your handling code here:
@@ -377,7 +397,7 @@ public class UpdatePostgraduate extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButtonClear;
+    private javax.swing.JButton jButtonDelete;
     private javax.swing.JButton jButtonRegister;
     private javax.swing.JButton jButtonSubmit;
     private javax.swing.JButton jButtonUpdate;

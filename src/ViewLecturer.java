@@ -1,7 +1,6 @@
 
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import model.Lecturer;
 
 /*
@@ -19,6 +18,7 @@ public class ViewLecturer extends javax.swing.JPanel {
     AdminPanel adminPanel;
     /**
      * Creates new form ViewLecturer
+     * @param adminPanel
      */
     public ViewLecturer(AdminPanel adminPanel) {
         initComponents();
@@ -238,6 +238,9 @@ public class ViewLecturer extends javax.swing.JPanel {
         String id=jTextId.getText();
         try {
             Lecturer lec = LecturerController.searchLecturer(id);
+            if(lec==null){
+                JOptionPane.showMessageDialog(adminPanel, "Not a Registered Lecturer");
+            }
             jTextName.setText(lec.getName());
             jTextDoB.setText(lec.getDoB());
             jTextAddress.setText(lec.getAddress());
@@ -245,7 +248,7 @@ public class ViewLecturer extends javax.swing.JPanel {
             jTextEmail.setText(lec.getEmail());
             
         } catch (ClassNotFoundException | SQLException ex) {
-            Logger.getLogger(ViewLecturer.class.getName()).log(Level.SEVERE, null, ex);
+            ExceptionHandle.showError(ex);
         }
     }//GEN-LAST:event_jButtonSubmitActionPerformed
 

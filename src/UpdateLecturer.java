@@ -3,8 +3,7 @@ import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import model.Lecturer;
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -242,38 +241,50 @@ public class UpdateLecturer extends javax.swing.JPanel {
 
         add(jPanelUpdate, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 63, -1, -1));
     }// </editor-fold>//GEN-END:initComponents
-
+    public boolean validateFields(){
+        if(jTextName.getText().isEmpty() | jTextAddress.getText().isEmpty() | jTextContact.getText().isEmpty() | jTextEmail.getText().isEmpty()){
+            JOptionPane.showMessageDialog(adminPanel, "Please Fill all the Fields Before Submit", "Warning",JOptionPane.WARNING_MESSAGE);
+            return false;
+        }
+        return true;
+    }
     private void jButtonUpdate1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonUpdate1ActionPerformed
 
         String id = jTextId.getText();
         Lecturer lec = new Lecturer(id,jTextName.getText(),DoB,jTextAddress.getText(),jTextEmail.getText(),jTextContact.getText());
-        try {
-            LecturerController.updateLecturer(lec);
-            UpdateLecturer updateLec=new UpdateLecturer(adminPanel);
-            adminPanel.masterPanel.removeAll();
-            adminPanel.masterPanel.add(updateLec);
-            adminPanel.masterPanel.repaint();
-            adminPanel.masterPanel.revalidate();
-            updateLec.setVisible(true);  
-        } catch (ClassNotFoundException | SQLException ex) {
-            Logger.getLogger(UpdateLecturer.class.getName()).log(Level.SEVERE, null, ex);
+        if(validateFields()){
+            try {
+                LecturerController.updateLecturer(lec);
+                JOptionPane.showMessageDialog(adminPanel, "Updated Data Sucessfully");
+                UpdateLecturer updateLec=new UpdateLecturer(adminPanel);
+                adminPanel.masterPanel.removeAll();
+                adminPanel.masterPanel.add(updateLec);
+                adminPanel.masterPanel.repaint();
+                adminPanel.masterPanel.revalidate();
+                updateLec.setVisible(true);  
+            } catch (ClassNotFoundException | SQLException ex) {
+                ExceptionHandle.showError(ex);
+            }
         }
-
     }//GEN-LAST:event_jButtonUpdate1ActionPerformed
 
     private void jButtonDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDeleteActionPerformed
         String id=jTextId.getText();
-        UpdateLecturer updateLec=new UpdateLecturer(adminPanel);
-        adminPanel.masterPanel.removeAll();
-        adminPanel.masterPanel.add(updateLec);
-        adminPanel.masterPanel.repaint();
-        adminPanel.masterPanel.revalidate();
-        updateLec.setVisible(true);  
-        try {
-            LecturerController.deleteLecturer(id);
-        } catch (ClassNotFoundException | SQLException ex) {
-            Logger.getLogger(ViewLecturer.class.getName()).log(Level.SEVERE, null, ex);
-        }  // TODO add your ha
+        int YesOrNo = JOptionPane.showConfirmDialog(null,"Do You Want to Exit","Exit",JOptionPane.YES_NO_OPTION);
+        if(YesOrNo == 0){
+            try {
+                LecturerController.deleteLecturer(id);
+                JOptionPane.showMessageDialog(adminPanel, "Data Removed Sucessfully");
+                UpdateLecturer updateLec=new UpdateLecturer(adminPanel);
+                adminPanel.masterPanel.removeAll();
+                adminPanel.masterPanel.add(updateLec);
+                adminPanel.masterPanel.repaint();
+                adminPanel.masterPanel.revalidate();
+                updateLec.setVisible(true);
+            } catch (ClassNotFoundException | SQLException ex) {
+                ExceptionHandle.showError(ex);
+            }
+        }   
     }//GEN-LAST:event_jButtonDeleteActionPerformed
 
     private void jTextIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextIdActionPerformed
@@ -306,6 +317,15 @@ public class UpdateLecturer extends javax.swing.JPanel {
         String id=jTextId.getText();
         try {
             Lecturer lec = LecturerController.searchLecturer(id);
+            if(lec==null){
+                JOptionPane.showMessageDialog(adminPanel, "Not a Registered Lecturer");
+                UpdateLecturer updateLec=new UpdateLecturer(adminPanel);
+                adminPanel.masterPanel.removeAll();
+                adminPanel.masterPanel.add(updateLec);
+                adminPanel.masterPanel.repaint();
+                adminPanel.masterPanel.revalidate();
+                updateLec.setVisible(true);
+            }
             jTextName.setText(lec.getName());
             jTextAddress.setText(lec.getAddress());
             jTextContact.setText(lec.getContact());
@@ -316,10 +336,8 @@ public class UpdateLecturer extends javax.swing.JPanel {
             jPickerDoB.setFormats(fmt);
             jPickerDoB.setDate(date);
             
-        } catch (ClassNotFoundException | SQLException ex) {
-            Logger.getLogger(ViewLecturer.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ParseException ex) {
-            Logger.getLogger(UpdateLecturer.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException | SQLException | ParseException ex) {
+            ExceptionHandle.showError(ex);
         }
     }//GEN-LAST:event_jButtonSubmitActionPerformed
 

@@ -18,7 +18,7 @@ import model.Enroll;
  */
 public class EnrollController {
     public static int enrollSubject(Enroll enroll) throws ClassNotFoundException, SQLException{
-        String sql="Insert into Enroll(SubjectId,StudentId,RegDate) Values(?,?,?)";
+        String sql="Insert into Enroll (SubjectId,StudentId,RegDate) Values(?,?,?) ";
         Connection con = MyConnection.getConnection();
         PreparedStatement stm = con.prepareStatement(sql);
         stm.setObject(1, enroll.getId());
@@ -27,11 +27,20 @@ public class EnrollController {
         return stm.executeUpdate();
     }
     public static int deleteSubject(String subjectid,String studentid) throws ClassNotFoundException, SQLException{
-        String sql="Delete from subject where SubjectId=? AND StudentId=?";
+        String sql="Delete from Enroll where SubjectId=? AND StudentId=?";
         Connection con = MyConnection.getConnection();
         PreparedStatement stm = con.prepareStatement(sql);
         stm.setObject(1, subjectid);
         stm.setObject(1, studentid);
+        return stm.executeUpdate();
+    }
+    public static int updateSubject(Enroll enroll) throws ClassNotFoundException, SQLException{
+        String sql="Update Enroll set SubjectId=?,RegDate=?  where StudentId=?";
+        Connection con = MyConnection.getConnection();
+        PreparedStatement stm = con.prepareStatement(sql);
+        stm.setObject(3, enroll.getStudentId());
+        stm.setObject(1, enroll.getId());
+        stm.setObject(2, enroll.getRegDate());
         return stm.executeUpdate();
     }
 }

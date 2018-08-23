@@ -35,7 +35,7 @@ public class LecturePanel extends javax.swing.JFrame {
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
         jPanel1 = new javax.swing.JPanel();
-        ButtonUpload = new javax.swing.JButton();
+        jButtonProfile = new javax.swing.JButton();
         ButtonExit = new javax.swing.JButton();
         ButtonEvaluation = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -51,23 +51,23 @@ public class LecturePanel extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(0, 153, 153));
 
-        ButtonUpload.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
-        ButtonUpload.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Search.png"))); // NOI18N
-        ButtonUpload.setText("View Profile");
-        ButtonUpload.addMouseListener(new java.awt.event.MouseAdapter() {
+        jButtonProfile.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
+        jButtonProfile.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Search.png"))); // NOI18N
+        jButtonProfile.setText("View Profile");
+        jButtonProfile.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                ButtonUploadMouseClicked(evt);
+                jButtonProfileMouseClicked(evt);
             }
         });
-        ButtonUpload.addActionListener(new java.awt.event.ActionListener() {
+        jButtonProfile.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ButtonUploadActionPerformed(evt);
+                jButtonProfileActionPerformed(evt);
             }
         });
 
         ButtonExit.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
-        ButtonExit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Exit.png"))); // NOI18N
-        ButtonExit.setText("Exit");
+        ButtonExit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Evaluation_1.png"))); // NOI18N
+        ButtonExit.setText("Evaluation");
         ButtonExit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ButtonExitActionPerformed(evt);
@@ -114,24 +114,23 @@ public class LecturePanel extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(90, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1035, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+            .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(29, 29, 29)
                 .addComponent(LabelPhoto, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(90, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1035, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(ButtonExit, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(43, 43, 43)
-                        .addComponent(ButtonBack, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(48, 48, 48)
-                        .addComponent(ButtonEvaluation, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(49, 49, 49)
-                        .addComponent(ButtonUpload, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(42, 42, 42))))
+                .addGap(120, 120, 120)
+                .addComponent(ButtonBack, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(56, 56, 56)
+                .addComponent(ButtonExit, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(ButtonEvaluation, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(49, 49, 49)
+                .addComponent(jButtonProfile, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(42, 42, 42))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -142,10 +141,10 @@ public class LecturePanel extends javax.swing.JFrame {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(78, 78, 78)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(ButtonUpload, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButtonProfile, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(ButtonEvaluation, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(ButtonExit, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(ButtonBack, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(ButtonBack, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(ButtonExit, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(101, Short.MAX_VALUE))
         );
 
@@ -180,17 +179,21 @@ public class LecturePanel extends javax.swing.JFrame {
     }//GEN-LAST:event_ButtonEvaluationActionPerformed
 
     private void ButtonExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonExitActionPerformed
-        System.exit(0);
+        LectureEvaluation2 lec2 = new LectureEvaluation2();
+        lec2.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_ButtonExitActionPerformed
 
-    private void ButtonUploadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonUploadActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_ButtonUploadActionPerformed
+    private void jButtonProfileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonProfileActionPerformed
+        LectureProfileView lec = new LectureProfileView();
+        lec.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jButtonProfileActionPerformed
 
-    private void ButtonUploadMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ButtonUploadMouseClicked
+    private void jButtonProfileMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonProfileMouseClicked
         final JFileChooser fc =new JFileChooser();
         int returnval = fc.showOpenDialog(jPanel1);
-    }//GEN-LAST:event_ButtonUploadMouseClicked
+    }//GEN-LAST:event_jButtonProfileMouseClicked
 
     /**
      * @param args the command line arguments
@@ -231,9 +234,9 @@ public class LecturePanel extends javax.swing.JFrame {
     private javax.swing.JButton ButtonBack;
     private javax.swing.JButton ButtonEvaluation;
     private javax.swing.JButton ButtonExit;
-    private javax.swing.JButton ButtonUpload;
     private javax.swing.JLabel LabelPhoto;
     private javax.swing.JTable LectureCourseTable;
+    private javax.swing.JButton jButtonProfile;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JPanel jPanel1;
